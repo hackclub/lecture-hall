@@ -1,0 +1,4 @@
+[submodule "vendor/hackclub"]
+	path = vendor/hackclub
+	url = https://github.com/hackclub/hackclub.git
+	branch = master
