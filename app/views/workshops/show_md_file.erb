@@ -1,8 +1,12 @@
 <div class="container">
-  <div class="table-of-contents">
-    <%= @workshop_toc_html %>
-  </div>
-  <div class="contents">
-    <%= @workshop_html %>
+  <div class="row">
+    <div class="col-md-9 contents">
+      <%= @workshop_html %>
+    </div>
+    <div class="col-md-3 table-of-contents">
+      <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+        <%= @workshop_toc_html %>
+      </nav>
+    </div>
   </div>
 </div>

@@ -14,4 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
+//
+// App
+//
+//= require app
+//
+// ActionCable
+//
+//= require cable
+//
+// Page specific login
+//
+//= require workshops
