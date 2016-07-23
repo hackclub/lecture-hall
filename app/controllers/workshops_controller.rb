@@ -1,37 +1,51 @@
 class WorkshopsController < ApplicationController
-  def render_file
+  before_action :ensure_trailing_slash, only: :render_workshop
+
+  def index
+    path = workshops_path.join('README.md')
+
+    render_md_file(path)
+  end
+
+  def render_workshop
     begin
-      path = params[:file]
-      ext = File.extname(path)
+      workshop = params[:workshop]
+      path = workshops_path.join(workshop, 'README.md')
 
-      # If they requested a directory (like if they went to /personal_website or
-      # just /), this resolves that to the README.md file in that repo.
-      #
-      # If they're just asking for a regular file, resolve that to our submodule.
-      if ext == '' # if they requested a directory, ex. /personal_website
-        path = workshops_path.join(path, 'README.md')
-        ext = '.md'
-      else
-        path = workshops_path.join(path)
-      end
-
-      if ext == '.md'
-        contents = File.read(path)
-        md = MarkdownService.new
-
-        @workshop_toc_html = md.render_toc(contents).html_safe
-        @workshop_html = md.render(contents).html_safe
-
-        render :show
-      else
-        send_file path
-      end
+      render_md_file(path)
     rescue Errno::ENOENT
       raise ActionController::RoutingError, 'Workshop Not Found'
     end
   end
 
+  def render_file
+    begin
+      workshop = params[:workshop]
+      file = params[:file]
+
+      path = workshops_path.join(workshop, file)
+
+      if File.extname(file) == '.md'
+        render_md_file(path)
+      else
+        send_file path
+      end
+    rescue Errno::ENOENT, ActionController::MissingFile
+      raise ActionController::RoutingError, 'File Not Found'
+    end
+  end
+
   private
+
+  def render_md_file(path)
+    contents = File.read(path)
+    md = MarkdownService.new
+
+    @workshop_toc_html = md.render_toc(contents).html_safe
+    @workshop_html = md.render(contents).html_safe
+
+    render :show_md_file
+  end
 
   def workshops_path
     Rails.root.join('vendor', 'hackclub', 'workshops')
