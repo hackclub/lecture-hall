@@ -54,4 +54,75 @@ console.log('test');
 
     assert_equal(output, expected)
   end
+
+  test 'it renders sidebars' do
+    # Complete example where the last header has children
+    input1 = %Q(
+# Lorem Ipsum
+
+## Dolor Sit Amet
+
+### Consectetur Adipiscing Elit
+
+### Morbi Eu Congue
+
+## Praesent In Eros
+
+## Etiam Metus Augue
+
+### Commodo Urna
+).strip
+    expected1 = %Q(
+<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
+  <ul id="sidebar" class="nav nav-stacked fixed">
+    <li>
+      <a href="#dolor-sit-amet">Dolor Sit Amet</a>
+      <ul class="nav nav-stacked">
+        <li><a href="#consectetur-adipiscing-elit">Consectetur Adipiscing Elit</a></li>
+        <li><a href="#morbi-eu-congue">Morbi Eu Congue</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#praesent-in-eros">Praesent In Eros</a>
+    </li>
+    <li>
+      <a href="#etiam-metus-augue">Etiam Metus Augue</a>
+      <ul class="nav nav-stacked">
+        <li><a href="#commodo-urna">Commodo Urna</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+).strip
+
+    # Short test where the last header has no children
+    input2 = %Q(
+## Dolor Sit Amet
+
+### Consectetur Adipiscing Elit
+
+## Etiam Metus Augue
+).strip
+    expected2 = %Q(
+<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
+  <ul id="sidebar" class="nav nav-stacked fixed">
+    <li>
+      <a href="#dolor-sit-amet">Dolor Sit Amet</a>
+      <ul class="nav nav-stacked">
+        <li><a href="#consectetur-adipiscing-elit">Consectetur Adipiscing Elit</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#etiam-metus-augue">Etiam Metus Augue</a>
+    </li>
+  </ul>
+</nav>
+).strip
+
+    output1 = MarkdownService.new.render_sidebar(input1)
+    output2 = MarkdownService.new.render_sidebar(input2)
+
+    assert_equal(expected1, output1)
+    assert_equal(expected2, output2)
+  end
 end

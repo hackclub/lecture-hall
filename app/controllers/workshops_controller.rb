@@ -41,7 +41,7 @@ class WorkshopsController < ApplicationController
     contents = File.read(path)
     md = MarkdownService.new
 
-    @workshop_toc_html = md.render_toc(contents).html_safe
+    @workshop_sidebar_html = md.render_sidebar(contents).html_safe
     @workshop_html = md.render(contents).html_safe
 
     render :show_md_file

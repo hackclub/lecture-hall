@@ -7,8 +7,8 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     # The first header should say "Workshop"
     assert_select '.contents > h1', 'Workshops'
 
-    # It should have a table of contents
-    assert_select '.table-of-contents > ul > li > a'
+    # It should have a sidebar
+    assert_select '.workshop-sidebar > ul > li > a'
   end
 
   test 'shows workshops' do
@@ -17,8 +17,8 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     # The first header in .workshop should say "Personal Website"
     assert_select '.contents > h1', 'Personal Website'
 
-    # There should be a table of contents present
-    assert_select '.table-of-contents > ul > li > a'
+    # There should be a sidebar
+    assert_select '.workshop-sidebar > ul > li > a'
   end
 
   test 'redirects workshops when no trailing slash' do

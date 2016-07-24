@@ -18,6 +18,7 @@
 // App
 //
 //= require app
+//= require app.scrollspy
 //
 // ActionCable
 //
