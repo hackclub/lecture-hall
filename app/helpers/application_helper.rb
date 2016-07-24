@@ -1,8 +1,8 @@
 module ApplicationHelper
-  def full_title(page_title=nil)
+  def full_title(page_title='')
     base_title = 'Hack Club Workshops'
 
-    unless page_title
+    if page_title.empty?
       base_title
     else
       "#{page_title} | #{base_title}"

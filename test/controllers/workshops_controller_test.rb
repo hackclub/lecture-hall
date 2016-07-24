@@ -11,6 +11,12 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.workshop-sidebar > ul > li > a'
   end
 
+  test 'title on index' do
+    get '/'
+
+    assert_select 'title', 'Hack Club Workshops'
+  end
+
   test 'shows workshops' do
     get '/personal_website/'
 
@@ -19,6 +25,12 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
 
     # There should be a sidebar
     assert_select '.workshop-sidebar > ul > li > a'
+  end
+
+  test 'workshop titles' do
+    get '/personal_website/'
+
+    assert_select 'title', 'Personal Website | Hack Club Workshops'
   end
 
   test 'redirects workshops when no trailing slash' do
@@ -43,6 +55,12 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     get '/personal_website/README.md'
 
     assert_select '.workshop-contents > h1', 'Personal Website'
+  end
+
+  test 'title with markdown files in workshops' do
+    get '/personal_website/README.md'
+
+    assert_select 'title', 'README.md | Hack Club Workshops'
   end
 
   test "returns 404 when regular file doesn't exist" do

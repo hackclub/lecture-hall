@@ -12,6 +12,7 @@ class WorkshopsController < ApplicationController
       workshop = params[:workshop]
       path = workshops_path.join(workshop, 'README.md')
 
+      @title = workshop.humanize.titleize
       render_md_file(path)
     rescue Errno::ENOENT
       raise ActionController::RoutingError, 'Workshop Not Found'
@@ -26,6 +27,7 @@ class WorkshopsController < ApplicationController
       path = workshops_path.join(workshop, file)
 
       if File.extname(file) == '.md'
+        @title = file
         render_md_file(path)
       else
         send_file path
