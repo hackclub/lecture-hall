@@ -2,3 +2,6 @@
 	path = vendor/hackclub
 	url = https://github.com/hackclub/hackclub.git
 	branch = master
+[submodule "vendor/assets/stylesheets/pygments-github-style"]
+	path = vendor/assets/stylesheets/pygments-github-style
+	url = https://github.com/aahan/pygments-github-style
