@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.workshop-contents img {
+  max-width: 100%;
+}
+
 .workshop-sidebar {
   padding-left: 20px;
   margin-top: 20px;
