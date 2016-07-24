@@ -5,7 +5,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     get '/'
 
     # The first header should say "Workshop"
-    assert_select '.contents > h1', 'Workshops'
+    assert_select '.workshop-contents > h1', 'Workshops'
 
     # It should have a sidebar
     assert_select '.workshop-sidebar > ul > li > a'
@@ -15,7 +15,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     get '/personal_website/'
 
     # The first header in .workshop should say "Personal Website"
-    assert_select '.contents > h1', 'Personal Website'
+    assert_select '.workshop-contents > h1', 'Personal Website'
 
     # There should be a sidebar
     assert_select '.workshop-sidebar > ul > li > a'
@@ -42,7 +42,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   test 'renders markdown files from workshops' do
     get '/personal_website/README.md'
 
-    assert_select '.contents > h1', 'Personal Website'
+    assert_select '.workshop-contents > h1', 'Personal Website'
   end
 
   test "returns 404 when regular file doesn't exist" do
