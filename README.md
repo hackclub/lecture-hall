@@ -28,4 +28,4 @@ Lecture Hall is configured to store all installed gems in a separate volume call
 
 ## License
 
-See [`LICENSE`][LICENSE].
+See [`LICENSE`](LICENSE).
