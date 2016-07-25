@@ -12,6 +12,7 @@ checkout:
 # submodules and Heroku only supports submodules when deploying through git.
 deployment:
   master:
+    branch: master
     commands:
       - git remote add heroku https://git.heroku.com/lecture-hall.git
       - git push heroku
