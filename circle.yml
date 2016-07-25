@@ -15,4 +15,4 @@ deployment:
     branch: master
     commands:
       - git remote add heroku https://git.heroku.com/lecture-hall.git
-      - git push heroku
+      - GIT_SSH_COMMAND="ssh -i ~/.ssh/id_circleci_github" git push heroku
