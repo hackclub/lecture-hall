@@ -4,6 +4,13 @@ require 'rouge/plugins/redcarpet'
 class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
+    def link(link, title, content)
+      if link.starts_with?("http")
+        "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\" rel=\"noreferrer\">#{content}</a>"
+      else
+        "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
+      end
+    end
   end
 
   # This renders HTML sidebars to be used with scrollspy to track workshop
