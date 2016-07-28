@@ -4,12 +4,19 @@ require 'rouge/plugins/redcarpet'
 class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
+
     def link(link, title, content)
       if link.starts_with?("http")
         "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\" rel=\"noreferrer\">#{content}</a>"
       else
         "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
       end
+    end
+
+    # type can be either "url" or "email", but I doubt email links will be used
+    # much if at all. So this only addresses the "url" case
+    def autolink(link,type) 
+      "<a href=\"#{link}\" target=\"_blank\" rel=\"noreferrer\">#{link}</a>"
     end
   end
 
