@@ -16,9 +16,16 @@ Start by cloning the repository recursively so you get all submodules.
 
     $ git clone --recursive git@github.com:hackclub/lecture-hall.git
 
-And then start the app! It's that easy.
+And then start the app!
 
     $ docker-compose up
+
+Finally, create the database and run migrations:
+
+    $ docker-compose run web rails db:create
+    $ docker-compose run web rails db:migrate
+
+That's it!
 
 ### Installing Gems
 
