@@ -16,6 +16,13 @@ Start by cloning the repository recursively so you get all submodules.
 
     $ git clone --recursive git@github.com:hackclub/lecture-hall.git
 
+Create a file called `.env` with the following contents. Replace text between `<` and `>` with actual info.
+
+```
+GITHUB_CLIENT_ID=<REPLACE>
+GITHUB_CLIENT_SECRET=<REPLACE>
+```
+
 And then start the app! It's that easy.
 
     $ docker-compose up
