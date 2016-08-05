@@ -1,0 +1,15 @@
+.auth-wall {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  opacity: 0.5;
+
+  @include filter(blur(1px));
+}
+
+.modal-auth-wall {
+  max-width: 500px;
+}

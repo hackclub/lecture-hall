@@ -1,0 +1,19 @@
+@import "bootstrap/variables";
+
+.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: $screen-sm) {
+  .modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog-center {
+  display: inline-block;
+  vertical-align: middle;
+}

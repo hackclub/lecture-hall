@@ -9,6 +9,28 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if signed_in? %>
+      <%= yield %>
+    <% else %>
+      <div class="modal modal-center show" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-center modal-auth-wall" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <%= link_to '/auth/github', class: 'btn btn-lg btn-social btn-github' do %>
+                <span class="fa fa-github"></span> Continue with GitHub
+              <% end %>
+              <hr>
+              <h4>Why do I need to sign in?</h4>
+              <p>
+                Look, we'll give it to you straight. Hack Club is a small nonprofit and when you sign-in, you give us metrics that show our funders Hack Club's impact &ndash; allowing us to keep Hack Club free and open source for every student.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="auth-wall">
+        <%= yield %>
+      </div>
+    <% end %>
   </body>
 </html>

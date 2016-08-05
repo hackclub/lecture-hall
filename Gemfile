@@ -12,11 +12,16 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
+gem 'bourbon'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'font-awesome-rails'
+gem 'bootstrap-social-rails'
 gem 'redcarpet'
 gem 'rouge'
+gem 'omniauth-github'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'byebug', platform: :mri
 end
 
