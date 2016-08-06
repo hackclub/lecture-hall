@@ -25,6 +25,11 @@ GITHUB_CLIENT_SECRET=<REPLACE>
 SEGMENT_WRITE_KEY=<REPLACE>
 ```
 
+Finally, create the database and run migrations.
+
+    $ docker-compose run web rails db:create
+    $ docker-compose run web rails db:migrate
+
 And then start the app! It's that easy.
 
     $ docker-compose up
