@@ -1,23 +1,6 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    @mock_auth = OmniAuth::AuthHash.new(
-      {
-        provider: 'github',
-        uid: '10101',
-        info: {
-          name: 'Prophet Orpheus'
-        }
-      }
-    )
-
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:github] = @mock_auth
-
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-  end
-
   # create
 
   test 'creates a user' do

@@ -2,13 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test 'successfully creates with omniauth' do
-    auth = OmniAuth::AuthHash.new({
-      provider: 'github',
-      uid: '4334',
-      info: {
-        name: 'Pikachu'
-      }
-    })
+    auth = @mock_auth
     orig_count = User.count
 
     user = User.create_with_omniauth(auth)
