@@ -11,7 +11,23 @@ class MarkdownServiceTest < ActiveSupport::TestCase
 
   test 'it automatically creates links' do
     input = 'https://example.com'
-    expected = "<p><a href=\"https://example.com\">https://example.com</a></p>\n"
+    expected = "<p><a href=\"https://example.com\" target=\"_blank\" rel=\"noreferrer\">https://example.com</a></p>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(output, expected)
+  end
+
+  test 'links to relative pages' do
+    input = '[Content](../page.md "Title")'
+    expected = "<p><a href=\"../page.md\" title=\"Title\">Content</a></p>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(output, expected)
+  end
+
+  test 'links to other pages in new tabs' do
+    input = '[Content](https://example.com "Title")'
+    expected = "<p><a href=\"https://example.com\" title=\"Title\" target=\"_blank\" rel=\"noreferrer\">Content</a></p>\n"
     output = MarkdownService.new.render(input)
 
     assert_equal(output, expected)
