@@ -3,6 +3,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
+  include SessionsHelper
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
@@ -33,7 +35,7 @@ class ActiveSupport::TestCase
   end
 
   # Analytics assertions
-  def assert_has_tracked(event_name, user=nil, properties=nil)
+  def assert_has_tracked(event_name, user=current_user, properties=nil)
     res = AnalyticsService.backend
       .tracked_events_for(user)
       .named(event_name)

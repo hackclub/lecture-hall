@@ -1,6 +1,4 @@
 class ApplicationHelperTest < ActionView::TestCase
-  include SessionsHelper
-
   test 'full_title formatting when given input' do
     input = 'Test'
     expected = 'Test | Hack Club Workshops'

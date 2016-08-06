@@ -23,7 +23,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test 'tracks sign in in analytics' do
     get '/auth/github/callback'
 
-    assert_has_tracked(AnalyticsService::USER_SIGN_IN, User.last)
+    assert_has_tracked(AnalyticsService::USER_SIGN_IN)
   end
 
   test 'redirects user to root' do
@@ -45,9 +45,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test 'tracks sign out in analytics' do
     get '/auth/github/callback'
+
+    user = User.last
+
     get '/sign_out'
 
-    assert_has_tracked(AnalyticsService::USER_SIGN_OUT, User.last)
+    assert_has_tracked(AnalyticsService::USER_SIGN_OUT, user)
   end
 
   test 'redirects to homepage' do
