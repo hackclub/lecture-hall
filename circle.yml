@@ -2,6 +2,8 @@ machine:
   ruby:
     version:
       2.3.1
+  environment:
+    SEGMENT_WRITE_KEY: foobar
 
 checkout:
   post:
