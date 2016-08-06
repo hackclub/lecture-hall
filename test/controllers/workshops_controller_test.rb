@@ -33,6 +33,16 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Personal Website | Hack Club Workshops'
   end
 
+  test 'passes metadata to analytics on workshop view' do
+    get '/personal_website/'
+
+    page_name = @controller.instance_variable_get(:@metadata_page_name)
+    page_category = @controller.instance_variable_get(:@metadata_page_category)
+
+    assert_equal 'Personal Website', page_name
+    assert_equal 'Workshop', page_category
+  end
+
   test 'redirects workshops when no trailing slash' do
     get '/personal_website'
 
