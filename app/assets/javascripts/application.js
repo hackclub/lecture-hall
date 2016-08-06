@@ -26,6 +26,6 @@
 //
 //= require cable
 //
-// Page specific login
+// Page specific logic
 //
 //= require workshops
