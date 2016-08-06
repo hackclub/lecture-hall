@@ -1,0 +1,4 @@
+basic:
+  provider: github
+  uid: 1337
+  name: Example User

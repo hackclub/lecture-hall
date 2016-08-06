@@ -10,8 +10,6 @@ class AnalyticsService
   USER_SIGN_IN = 'Sign In User'
   USER_SIGN_OUT = 'Sign Out User'
 
-  WORKSHOP_VIEW = 'View Workshop'
-
   def initialize(user)
     @user = user
   end
@@ -36,19 +34,6 @@ class AnalyticsService
     )
   end
 
-  def track_view_workshop(workshop_name)
-    identify
-    track(
-      {
-        user_id: user.id,
-        event: WORKSHOP_VIEW,
-        properties: {
-          workshop: workshop_name
-        }
-      }
-    )
-  end
-
   private
 
   def identify
@@ -68,7 +53,6 @@ class AnalyticsService
     {
       name: user.name
     }.reject { |key, value| value.blank? }
-
   end
 
   def track(options)

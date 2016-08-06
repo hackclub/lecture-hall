@@ -13,9 +13,11 @@ class WorkshopsController < ApplicationController
       path = workshops_path.join(workshop, 'README.md')
 
       @title = workshop.humanize.titleize
-      render_md_file(path)
 
-      analytics.track_view_workshop(@title) if current_user
+      @metadata_page_name = @title
+      @metadata_page_category = 'Workshop'
+
+      render_md_file(path)
     rescue Errno::ENOENT
       raise ActionController::RoutingError, 'Workshop Not Found'
     end
