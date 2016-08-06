@@ -1,0 +1,22 @@
+class AppAnalytics {
+  constructor() {
+    this.backend = this._backend();
+  }
+
+  page(category, name, properties, options) {
+    this.backend.page(category, name, properties, options);
+  }
+
+  alias(userId, previousId, options, callback) {
+    this.backend.alias(userId, previousId, options, callback);
+  }
+
+  identify(userId, traits, options, callback) {
+    this.backend.identify(userId, traits, options, callback);
+  }
+
+  _backend() {
+    analytics.load("<%= Rails.application.secrets.segment_write_key %>");
+    return analytics;
+  }
+}

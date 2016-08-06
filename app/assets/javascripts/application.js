@@ -14,11 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require segment_snippet
 //
 // App
 //
-//= require app
 //= require app.scrollspy
+//= require app.analytics
+//= require app
 //
 // ActionCable
 //

@@ -13,4 +13,38 @@ class ApplicationHelperTest < ActionView::TestCase
 
     assert_equal expected, actual
   end
+
+  test 'json_metadata when not logged in' do
+    expected = {}
+    actual = metadata
+
+    assert_equal expected, actual
+  end
+
+  test 'json_metadata when logged in' do
+    sign_in users(:basic)
+
+    expected = { current_user: { id: current_user.id} }
+    actual = metadata
+
+    assert_equal expected, actual
+  end
+
+  test 'json_metadata with page category' do
+    @metadata_page_category = 'Test'
+
+    expected = { analytics: { page_category: 'Test' } }
+    actual = metadata
+
+    assert_equal expected, actual
+  end
+
+  test 'json_metadata with page name' do
+    @metadata_page_name = 'Test'
+
+    expected = { analytics: { page_name: 'Test' } }
+    actual = metadata
+
+    assert_equal expected, actual
+  end
 end

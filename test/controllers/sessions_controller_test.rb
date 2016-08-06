@@ -1,23 +1,6 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    @mock_auth = OmniAuth::AuthHash.new(
-      {
-        provider: 'github',
-        uid: '10101',
-        info: {
-          name: 'Prophet Orpheus'
-        }
-      }
-    )
-
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:github] = @mock_auth
-
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-  end
-
   # create
 
   test 'creates a user' do
@@ -37,6 +20,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal(nil, session[:user_id])
   end
 
+  test 'tracks sign in in analytics' do
+    get '/auth/github/callback'
+
+    assert_has_tracked(AnalyticsService::USER_SIGN_IN)
+  end
+
   test 'redirects user to root' do
     get '/auth/github/callback'
     assert_redirected_to '/'
@@ -52,6 +41,16 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     get '/sign_out'
 
     assert_equal(nil, session[:user_id])
+  end
+
+  test 'tracks sign out in analytics' do
+    get '/auth/github/callback'
+
+    user = User.last
+
+    get '/sign_out'
+
+    assert_has_tracked(AnalyticsService::USER_SIGN_OUT, user)
   end
 
   test 'redirects to homepage' do

@@ -21,6 +21,8 @@ Create a file called `.env` with the following contents. Replace text between `<
 ```
 GITHUB_CLIENT_ID=<REPLACE>
 GITHUB_CLIENT_SECRET=<REPLACE>
+
+SEGMENT_WRITE_KEY=<REPLACE>
 ```
 
 And then start the app! It's that easy.
