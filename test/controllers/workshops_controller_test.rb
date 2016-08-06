@@ -27,6 +27,13 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.workshop-sidebar > ul > li > a'
   end
 
+  test 'records workshop views in analytics' do
+    get '/auth/github/callback'
+    get '/personal_website/'
+
+    assert_has_tracked(AnalyticsService::WORKSHOP_VIEW, User.last, { workshop: 'Personal Website' })
+  end
+
   test 'workshop titles' do
     get '/personal_website/'
 

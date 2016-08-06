@@ -7,6 +7,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def setup
+    # Analytics setup
+    @cached_analytics_backend = AnalyticsService.backend
+    AnalyticsService.backend = FakeAnalyticsRuby.new
+
     # OmniAuth Setup
     @mock_auth = OmniAuth::AuthHash.new(
       {
@@ -22,5 +26,27 @@ class ActiveSupport::TestCase
     OmniAuth.config.mock_auth[:github] = @mock_auth
 
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+  end
+
+  def teardown
+    AnalyticsService.backend = @cached_analytics_backend
+  end
+
+  # Analytics assertions
+  def assert_has_tracked(event_name, user=nil, properties=nil)
+    res = AnalyticsService.backend
+      .tracked_events_for(user)
+      .named(event_name)
+      .has_properties?(properties)
+
+    assert(
+      res==true,
+      "Expected '#{ event_name }' to have been tracked with appropriate user and params"
+    )
+  end
+
+  def assert_has_identified(user, traits=nil)
+    res = AnalyticsService.backend.has_identified?(user, traits)
+    assert(res==true, "Expected user ID #{ user.id } to have been identified with appropriate traits")
   end
 end

@@ -14,6 +14,8 @@ class WorkshopsController < ApplicationController
 
       @title = workshop.humanize.titleize
       render_md_file(path)
+
+      analytics.track_view_workshop(@title) if current_user
     rescue Errno::ENOENT
       raise ActionController::RoutingError, 'Workshop Not Found'
     end

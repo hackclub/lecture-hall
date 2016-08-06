@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  def analytics
+    @analytics ||= AnalyticsService.new(current_user)
+  end
+
   private
 
   def ensure_trailing_slash
