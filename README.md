@@ -25,6 +25,11 @@ GITHUB_CLIENT_SECRET=<REPLACE>
 SEGMENT_WRITE_KEY=<REPLACE>
 ```
 
+Build the container and bundle install.
+
+    $ docker-compose build web
+    $ docker-compose run web bundle
+
 Finally, create the database and run migrations.
 
     $ docker-compose run web rails db:create
