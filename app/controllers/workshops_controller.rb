@@ -31,8 +31,12 @@ class WorkshopsController < ApplicationController
       path = workshops_path.join(workshop, file)
 
       if File.extname(file) == '.md'
-        @title = file
-        render_md_file(path)
+        if file == 'README.md'
+          redirect_to "/#{ params[:workshop] }/"
+        else
+          @title = file
+          render_md_file(path)
+        end
       else
         send_file path
       end
