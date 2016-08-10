@@ -16,6 +16,7 @@ class WorkshopsController < ApplicationController
 
       @metadata_page_name = @title
       @metadata_page_category = 'Workshop'
+      @auth_wall = true unless current_user or workshop == 'personal_website'
 
       render_md_file(path)
     rescue Errno::ENOENT
@@ -27,6 +28,8 @@ class WorkshopsController < ApplicationController
     begin
       workshop = params[:workshop]
       file = params[:file]
+
+      @auth_wall = true unless current_user or workshop == 'personal_website'
 
       path = workshops_path.join(workshop, file)
 
