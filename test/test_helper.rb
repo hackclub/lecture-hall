@@ -34,16 +34,43 @@ class ActiveSupport::TestCase
     AnalyticsService.backend = @cached_analytics_backend
   end
 
-  # Analytics assertions
-  def assert_has_tracked(event_name, user=current_user, properties=nil)
-    res = AnalyticsService.backend
+  # Analytics test helpers
+  def expect(expected, actual, error)
+    assert(expected == actual, error)
+  end
+
+  def tracked_event?(event_name, user=current_user, properties=nil)
+    AnalyticsService.backend
       .tracked_events_for(user)
       .named(event_name)
       .has_properties?(properties)
+  end
 
-    assert(
-      res==true,
-      "Expected '#{ event_name }' to have been tracked with appropriate user and params"
+  def tracked_page_view?(event_name, user=current_user, properties=nil)
+    AnalyticsService.backend
+      .tracked_page_views_for(user)
+      .named(event_name)
+      .has_properties?(properties)
+  end
+
+  # Analytics assertions
+  def assert_has_tracked(expected, type, name, user=current_user, properties=nil)
+    if type == :event
+      actual = tracked_event?(name, user, properties)
+    elsif type == :page_view
+      actual = tracked_page_view?(name, user, properties)
+    end
+
+    if expected
+      msg = "Expected '#{ name }' to have been tracked with correct user and parameters"
+    else
+      msg = "Expected '#{ name }' to not have been tracked"
+    end
+
+    expect(
+      expected,
+      actual,
+      message
     )
   end
 

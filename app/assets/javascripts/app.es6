@@ -5,7 +5,9 @@ class App {
 
   // Put any logic that should be run on every page here
   init() {
-    this.trackPage();
+    if (!(this.page_metadata.analytics && this.page_metadata.analytics.do_not_track)) {
+      this.trackPage();
+    }
   }
 
   trackPage() {
@@ -26,6 +28,8 @@ class App {
         } else if (name) {
           this.analytics.page(name);
         }
+      } else {
+        this.analytics.page();
       }
     } else {
       this.analytics.page();

@@ -10,6 +10,9 @@ class AnalyticsService
   USER_SIGN_IN = 'Sign In User'
   USER_SIGN_OUT = 'Sign Out User'
 
+  # Page Categories
+  WORKSHOP = 'Workshop'
+
   def initialize(user)
     @user = user
   end
@@ -30,6 +33,20 @@ class AnalyticsService
       {
         user_id: user.id,
         event: USER_SIGN_OUT
+      }
+    )
+  end
+
+  def track_workshop_view(name, url)
+    identify
+    page(
+      {
+        user_id: user.id,
+        name: name.humanize.titleize,
+        category: WORKSHOP,
+        properties: {
+          url: url,
+        }
       }
     )
   end
@@ -57,5 +74,9 @@ class AnalyticsService
 
   def track(options)
     backend.track(options)
+  end
+
+  def page(options)
+    backend.page(options)
   end
 end

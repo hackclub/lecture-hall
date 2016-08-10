@@ -28,12 +28,14 @@ module ApplicationHelper
 
     page_category = @metadata_page_category
     page_name = @metadata_page_name
+    do_not_track = @metadata_do_not_track
 
     if page_category || page_name
       metadata[:analytics] ||= {}
 
       metadata[:analytics][:page_category] = page_category if page_category
       metadata[:analytics][:page_name] = page_name if page_name
+      metadata[:analytics][:do_not_track] = do_not_track if do_not_track
     end
 
     if current_user

@@ -38,9 +38,23 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
 
     page_name = @controller.instance_variable_get(:@metadata_page_name)
     page_category = @controller.instance_variable_get(:@metadata_page_category)
+    do_not_track = @controller.instance_variable_get(:@metadata_do_not_track)
 
     assert_equal 'Personal Website', page_name
     assert_equal 'Workshop', page_category
+    assert_equal false, do_not_track
+  end
+
+  test 'passes do_not_track metadata to analytics when signed in at workshop view' do
+    # Sign in
+    get '/auth/github/callback'
+
+    # Go to workshop view
+    get '/personal_website/'
+
+    do_not_track = @controller.instance_variable_get(:@metadata_do_not_track)
+
+    assert_equal true, do_not_track
   end
 
   test 'redirects workshops when no trailing slash' do
@@ -83,5 +97,25 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_raises ActionController::RoutingError do
       get '/personal_website/FAKE.md'
     end
+  end
+
+  test "the proper page event is sent when workshop roots are loaded" do
+    # Sign in
+    get '/auth/github/callback'
+
+    # Load a workshop
+    get '/personal_website/'
+
+    assert_has_tracked(true, :page_view, 'Personal Website')
+  end
+
+  test "no page event is sent when markdown files are loaded" do
+    # Sign in
+    get '/auth/github/callback'
+
+    # Load a markdown file inside a workshop
+    get '/personal_website/README.md'
+
+    assert_has_tracked(false, :page_view, 'Personal Website')
   end
 end
