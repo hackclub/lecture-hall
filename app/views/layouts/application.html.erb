@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <% if signed_in? %>
+    <% unless @auth_wall %>
       <%= yield %>
     <% else %>
       <div class="modal modal-center show" tabindex="-1" role="dialog">
