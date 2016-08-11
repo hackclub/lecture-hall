@@ -7,6 +7,20 @@ class WorkshopsController < ApplicationController
     render_md_file(path)
   end
 
+  def send_root_file
+    begin
+      file = workshops_path.join(params[:file])
+      if File.extname(file) == '.md'
+        @title = params[:file]
+        render_md_file file
+      else
+        send_file file
+      end
+    rescue Errno::ENOENT
+      raise ActionController::RoutingError, 'File Not Found'
+    end
+  end
+
   def render_workshop
     begin
       workshop = params[:workshop]

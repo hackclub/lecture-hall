@@ -17,6 +17,16 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Hack Club Workshops'
   end
 
+  test 'shows root-level markdown files' do
+    get '/CONTRIBUTING.md'
+
+    # The page title should include file name and 'Hack Club Workshops'
+    assert_select 'title', 'CONTRIBUTING.md | Hack Club Workshops'
+
+    # There should be a sidebar
+    assert_select '.workshop-sidebar > ul > li > a'
+  end
+
   test 'shows workshops' do
     get '/personal_website/'
 
