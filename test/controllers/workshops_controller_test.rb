@@ -17,7 +17,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Hack Club Workshops'
   end
 
-  test 'shows root-level markdown files' do
+  test 'renders root-level markdown files' do
     get '/CONTRIBUTING.md'
 
     # The page title should include file name and 'Hack Club Workshops'
@@ -25,6 +25,14 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
 
     # There should be a sidebar
     assert_select '.workshop-sidebar > ul > li > a'
+  end
+
+  test 'serves non-markdown files from root workshops directory' do
+    path = Rails.root.join('vendor', 'hackclub', 'workshops', 'test.txt')
+    FileUtils.touch(path)
+    get '/test.txt'
+    FileUtils.rm(path)
+    assert_response :success
   end
 
   test 'shows workshops' do
@@ -96,11 +104,19 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_raises ActionController::RoutingError do
       get '/personal_website/fake_file.png'
     end
+
+    assert_raises ActionController::RoutingError do
+      get '/fake.txt'
+    end
   end
 
   test "returns 404 when markdown file doesn't exist" do
     assert_raises ActionController::RoutingError do
       get '/personal_website/FAKE.md'
+    end
+
+    assert_raises ActionController::RoutingError do
+      get '/fake.md'
     end
   end
 

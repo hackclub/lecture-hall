@@ -9,14 +9,14 @@ class WorkshopsController < ApplicationController
 
   def send_root_file
     begin
-      file = workshops_path.join(params[:file])
-      if File.extname(file) == '.md'
+      path = workshops_path.join(params[:file])
+      if File.extname(path) == '.md'
         @title = params[:file]
-        render_md_file file
+        render_md_file path
       else
-        send_file file
+        send_file path
       end
-    rescue Errno::ENOENT
+    rescue Errno::ENOENT, ActionController::MissingFile
       raise ActionController::RoutingError, 'File Not Found'
     end
   end
