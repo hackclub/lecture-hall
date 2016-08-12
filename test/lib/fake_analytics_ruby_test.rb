@@ -11,7 +11,7 @@ class FakeAnalyticsRubyTest < ActiveSupport::TestCase
     end
 
     def identify_params(user, traits)
-      {user_id: user.id, traits: traits }
+      { user_id: user.id, traits: traits }
     end
 
     traits = { foo: :bar }

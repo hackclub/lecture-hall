@@ -34,31 +34,17 @@ class ActiveSupport::TestCase
     AnalyticsService.backend = @cached_analytics_backend
   end
 
-  # Analytics test helpers
-  def expect(expected, actual, error)
-    assert(expected == actual, error)
-  end
-
-  def tracked_event?(event_name, user=current_user, properties=nil)
-    AnalyticsService.backend
-      .tracked_events_for(user)
-      .named(event_name)
-      .has_properties?(properties)
-  end
-
-  def tracked_page_view?(event_name, user=current_user, properties=nil)
-    AnalyticsService.backend
-      .tracked_page_views_for(user)
-      .named(event_name)
-      .has_properties?(properties)
+  def assert_has_identified(user, traits=nil)
+    res = AnalyticsService.backend.has_identified?(user, traits)
+    assert(res==true, "Expected user ID #{ user.id } to have been identified with appropriate traits")
   end
 
   # Analytics assertions
   def assert_has_tracked(expected, type, name, user=current_user, properties=nil)
     if type == :event
-      actual = tracked_event?(name, user, properties)
+      actual = has_tracked_event?(name, user, properties)
     elsif type == :page_view
-      actual = tracked_page_view?(name, user, properties)
+      actual = has_tracked_page_view?(name, user, properties)
     end
 
     if expected
@@ -67,15 +53,23 @@ class ActiveSupport::TestCase
       msg = "Expected '#{ name }' to not have been tracked"
     end
 
-    expect(
-      expected,
-      actual,
-      message
-    )
+    assert_equal(expected, actual, msg)
   end
 
-  def assert_has_identified(user, traits=nil)
-    res = AnalyticsService.backend.has_identified?(user, traits)
-    assert(res==true, "Expected user ID #{ user.id } to have been identified with appropriate traits")
+  private
+
+  # Analytics test helpers
+  def has_tracked_event?(event_name, user=current_user, properties=nil)
+    AnalyticsService.backend
+      .tracked_events_for(user)
+      .named(event_name)
+      .has_properties?(properties)
+  end
+
+  def has_tracked_page_view?(page_name, user=current_user, properties=nil)
+    AnalyticsService.backend
+      .tracked_page_views_for(user)
+      .named(page_name)
+      .has_properties?(properties)
   end
 end

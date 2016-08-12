@@ -37,15 +37,15 @@ class AnalyticsService
     )
   end
 
-  def track_workshop_view(name, url)
+  def track_workshop_view(workshop_path, url)
     identify
     page(
       {
         user_id: user.id,
-        name: name.humanize.titleize,
+        name: workshop_path.humanize.titleize,
         category: WORKSHOP,
         properties: {
-          url: url,
+          url: url
         }
       }
     )

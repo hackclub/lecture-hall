@@ -91,20 +91,16 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the proper page event is sent when workshop roots are loaded" do
-    # Sign in
     get '/auth/github/callback'
 
-    # Load a workshop
     get '/personal_website/'
 
     assert_has_tracked(true, :page_view, 'Personal Website')
   end
 
   test "no page event is sent when markdown files are loaded" do
-    # Sign in
     get '/auth/github/callback'
 
-    # Load a markdown file inside a workshop
     get '/personal_website/README.md'
 
     assert_has_tracked(false, :page_view, 'Personal Website')
