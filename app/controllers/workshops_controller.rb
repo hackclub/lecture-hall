@@ -14,10 +14,7 @@ class WorkshopsController < ApplicationController
       url = request.url
 
       @title = workshop.humanize.titleize
-
-      @metadata_page_name = @title
-      @metadata_page_category = 'Workshop'
-      @metadata_do_not_track = signed_in?
+      @metadata_should_track_page = signed_in?
 
       render_md_file(path)
 

@@ -33,28 +33,19 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Personal Website | Hack Club Workshops'
   end
 
-  test 'passes metadata to analytics on workshop view' do
+  test 'passes correct page tracking metadata' do
+    # view the workshop without signing in
     get '/personal_website/'
+    should_track_page = @controller.instance_variable_get(:@metadata_should_track_page)
 
-    page_name = @controller.instance_variable_get(:@metadata_page_name)
-    page_category = @controller.instance_variable_get(:@metadata_page_category)
-    do_not_track = @controller.instance_variable_get(:@metadata_do_not_track)
+    assert_equal false, should_track_page, "doesn't track users that aren't signed in"
 
-    assert_equal 'Personal Website', page_name
-    assert_equal 'Workshop', page_category
-    assert_equal false, do_not_track
-  end
-
-  test 'passes do_not_track metadata to analytics when signed in at workshop view' do
-    # Sign in
+    # sign in and view the workshop
     get '/auth/github/callback'
-
-    # Go to workshop view
     get '/personal_website/'
+    should_track_page = @controller.instance_variable_get(:@metadata_should_track_page)
 
-    do_not_track = @controller.instance_variable_get(:@metadata_do_not_track)
-
-    assert_equal true, do_not_track
+    assert_equal true, should_track_page, "track users that are signed in"
   end
 
   test 'redirects workshops when no trailing slash' do

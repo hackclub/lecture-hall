@@ -5,7 +5,7 @@ class App {
 
   // Put any logic that should be run on every page here
   init() {
-    if (!(this.page_metadata.analytics && this.page_metadata.analytics.do_not_track)) {
+    if (!(this.page_metadata.analytics && this.page_metadata.analytics.should_track_page)) {
       this.trackPage();
     }
   }
