@@ -68,7 +68,8 @@ class AnalyticsService
 
   def user_traits
     {
-      name: user.name
+      name: user.name,
+      email: user.email
     }.reject { |key, value| value.blank? }
   end
 
