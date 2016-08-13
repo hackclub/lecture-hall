@@ -6,6 +6,13 @@ class SessionsController < ApplicationController
       uid: auth['uid']
     ) || User.create_with_omniauth(auth)
 
+    # Update user with latest info from GitHub
+    auth_info_params = ActionController::Parameters.new(auth)
+                  .require(:info)
+                  .permit(:name, :email)
+    user.assign_attributes(auth_info_params)
+    user.save if user.changed?
+
     sign_in user
     analytics.track_user_sign_in
 
