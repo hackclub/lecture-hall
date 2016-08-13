@@ -5,7 +5,14 @@ class App {
 
   // Put any logic that should be run on every page here
   init() {
-    if (!(this.page_metadata.analytics && this.page_metadata.analytics.should_track_page)) {
+    let trackPage = true;
+
+    if (this.page_metadata.analytics &&
+        this.page_metadata.analytics.should_not_track_page) {
+      trackPage = false;
+    }
+
+    if (trackPage) {
       this.trackPage();
     }
   }

@@ -14,12 +14,11 @@ class WorkshopsController < ApplicationController
       url = request.url
 
       @title = workshop.humanize.titleize
-      @metadata_should_track_page = signed_in?
+      @metadata_should_not_track_page = true if signed_in?
 
       render_md_file(path)
 
-      analytics.track_workshop_view(workshop, url) if current_user
-
+      analytics.track_workshop_view(workshop, url) if signed_in?
     rescue Errno::ENOENT
       raise ActionController::RoutingError, 'Workshop Not Found'
     end

@@ -34,12 +34,30 @@ class ActiveSupport::TestCase
     AnalyticsService.backend = @cached_analytics_backend
   end
 
+  # Analytics assertions
   def assert_has_identified(user, traits=nil)
     res = AnalyticsService.backend.has_identified?(user, traits)
     assert(res==true, "Expected user ID #{ user.id } to have been identified with appropriate traits")
   end
 
-  # Analytics assertions
+  def assert_has_tracked_event(name, user=current_user, properties=nil)
+    assert_has_tracked(true, :event, name, user, properties)
+  end
+
+  def assert_has_tracked_page_view(name, user=current_user, properties=nil)
+    assert_has_tracked(true, :page_view, name, user, properties)
+  end
+
+  def assert_has_not_tracked_event(name, user=current_user, properties=nil)
+    assert_has_tracked(false, :event, name, user, properties)
+  end
+
+  def assert_has_not_tracked_page_view(name, user=current_user, properties=nil)
+    assert_has_tracked(false, :page_view, name, user, properties)
+  end
+
+  private
+
   def assert_has_tracked(expected, type, name, user=current_user, properties=nil)
     if type == :event
       actual = has_tracked_event?(name, user, properties)
@@ -55,8 +73,6 @@ class ActiveSupport::TestCase
 
     assert_equal(expected, actual, msg)
   end
-
-  private
 
   # Analytics test helpers
   def has_tracked_event?(event_name, user=current_user, properties=nil)

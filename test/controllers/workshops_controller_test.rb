@@ -36,16 +36,20 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   test 'passes correct page tracking metadata' do
     # view the workshop without signing in
     get '/personal_website/'
-    should_track_page = @controller.instance_variable_get(:@metadata_should_track_page)
 
-    assert_equal false, should_track_page, "doesn't track users that aren't signed in"
+    expected = nil
+    actual = @controller.instance_variable_get(:@metadata_should_not_track_page)
+
+    assert_equal expected, actual
 
     # sign in and view the workshop
     get '/auth/github/callback'
     get '/personal_website/'
-    should_track_page = @controller.instance_variable_get(:@metadata_should_track_page)
 
-    assert_equal true, should_track_page, "track users that are signed in"
+    expected = true
+    actual = @controller.instance_variable_get(:@metadata_should_not_track_page)
+
+    assert_equal expected, actual
   end
 
   test 'redirects workshops when no trailing slash' do
@@ -92,17 +96,15 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
 
   test "the proper page event is sent when workshop roots are loaded" do
     get '/auth/github/callback'
-
     get '/personal_website/'
 
-    assert_has_tracked(true, :page_view, 'Personal Website')
+    assert_has_tracked_page_view('Personal Website')
   end
 
   test "no page event is sent when markdown files are loaded" do
     get '/auth/github/callback'
-
     get '/personal_website/README.md'
 
-    assert_has_tracked(false, :page_view, 'Personal Website')
+    assert_has_not_tracked_page_view('Personal Website')
   end
 end
