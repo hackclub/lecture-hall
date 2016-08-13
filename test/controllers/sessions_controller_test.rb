@@ -10,6 +10,14 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(orig+1, User.count)
   end
 
+  test 'records correct user details' do
+    get '/auth/github/callback'
+    user = User.last
+
+    assert_equal(user.name, 'Prophet Orpheus')
+    assert_equal(user.email, 'prophetorpheus@hackclub.com')
+  end
+
   test 'creates a session' do
     get '/'
 

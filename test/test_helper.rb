@@ -19,7 +19,8 @@ class ActiveSupport::TestCase
         provider: 'github',
         uid: '10101',
         info: {
-          name: 'Prophet Orpheus'
+          name: 'Prophet Orpheus',
+          email: 'prophetorpheus@hackclub.com'
         }
       }
     )
