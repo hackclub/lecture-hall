@@ -28,6 +28,10 @@ class MarkdownService
     def autolink(link,type) 
       %(<a href="#{link}" target="_blank" rel="noreferrer">#{link}</a>)
     end
+
+    def preprocess(text)
+      text.gsub(/<!-- project submit button -->/, '<div class="project-submit-button"></div>')
+    end
   end
 
   # This renders HTML sidebars to be used with scrollspy to track workshop

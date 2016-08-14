@@ -150,4 +150,12 @@ console.log('test');
     assert_equal(expected1, output1)
     assert_equal(expected2, output2)
   end
+
+  test 'renders project submit button in correct page sections' do
+    input = '<!-- project submit button -->'
+    expected = "<div class=\"project-submit-button\"></div>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(output, expected)
+  end
 end
