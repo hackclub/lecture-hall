@@ -1,0 +1,21 @@
+<h3>Submit a project</h3>
+<%= form_tag('/projects', method: 'post') do %>
+  <div class="form-group">
+    <%= label_tag :project_name %>
+    <%= text_field_tag :name, nil, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :live_url, 'Live URL' %>
+    <%= text_field_tag :live_url, nil, placeholder: 'USERNAME.github.io', class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :github_url, 'GitHub URL' %>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon3">https://github.com/</span>
+      <%= text_field_tag :github_url, nil, placeholder: 'USERNAME/REPO-NAME', class: 'form-control validate-github-url' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= submit_tag nil, class: 'btn btn-default form-control' %>
+  </div>
+<% end %>
