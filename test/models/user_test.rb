@@ -5,6 +5,7 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:basic)
     super
   end
+
   test 'successfully creates with omniauth' do
     auth = @mock_auth
     orig_count = User.count
@@ -16,6 +17,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal(auth[:provider], user.provider)
     assert_equal(auth[:uid], user.uid)
     assert_equal(auth[:info][:name], user.name)
+    assert_equal(auth[:credentials][:token], user.access_token)
   end
 
   test 'has many projects' do
