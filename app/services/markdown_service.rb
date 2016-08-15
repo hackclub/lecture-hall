@@ -19,8 +19,8 @@ class MarkdownService
       "<a href=\"#{link}\" target=\"_blank\" rel=\"noreferrer\">#{link}</a>"
     end
 
-    def preprocess(text)
-      text.gsub(/<!-- project submit button -->/, '<div class="project-submit-button"></div>')
+    def postprocess(text)
+      text.gsub(/<!-- {{button: (.*?)}} -->/, "<button class=\"btn btn-lg shipped-projects-button\">\\1</button>")
     end
   end
 
