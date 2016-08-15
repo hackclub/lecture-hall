@@ -21,6 +21,9 @@ class ActiveSupport::TestCase
         info: {
           name: 'Prophet Orpheus',
           email: 'prophetorpheus@hackclub.com'
+        },
+        credentials: {
+          token: SecureRandom.hex
         }
       }
     )
