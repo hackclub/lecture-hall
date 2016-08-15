@@ -15,11 +15,13 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require segment_snippet
+//= require sentry_snippet
 //
 // App
 //
 //= require app.scrollspy
 //= require app.analytics
+//= require app.sentry
 //= require app
 //
 // ActionCable

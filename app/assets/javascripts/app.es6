@@ -1,6 +1,7 @@
 class App {
   constructor() {
     this.analytics = new AppAnalytics();
+    this.sentry = new AppSentry();
   }
 
   // Put any logic that should be run on every page here
