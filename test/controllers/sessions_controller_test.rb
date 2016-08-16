@@ -31,7 +31,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test 'updates user details on login' do
     NEW_NAME = 'Mr. Robot'
     NEW_EMAIL = 'different@hackclub.com'
-    NEW_ACCESS_TOKEN = 'test'
+    NEW_ACCESS_TOKEN = "test".freeze
 
     # FYI: @mock_auth is declared in test_helper.rb and is used as the auth hash
     # when using OmniAuth in tests. This verified that our new values aren't
@@ -59,7 +59,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal NEW_NAME, updated_user.name
     assert_equal @mock_auth[:info][:email], updated_user.email # Email hasn't changed yet
-    assert_equal @mock_auth[:credentials][:token], updated_user.access_token # Token hasn't changed
+    assert_equal(
+      @mock_auth[:credentials][:token],
+      updated_user.access_token
+    ) # Token hasn't changed
 
     sign_out
 
@@ -71,7 +74,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal NEW_NAME, updated_user.name
     assert_equal NEW_EMAIL, updated_user.email
-    assert_equal @mock_auth[:credentials][:token], updated_user.access_token # Token hasn't changed yet
+    assert_equal(
+      @mock_auth[:credentials][:token],
+      updated_user.access_token
+    ) # Token hasn't changed yet
 
     # Finally, for the access token
     @mock_auth[:credentials][:token] = NEW_ACCESS_TOKEN
