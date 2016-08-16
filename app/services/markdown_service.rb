@@ -8,7 +8,7 @@ class MarkdownService
     def paragraph(text)
       emojified = EmojiParser.detokenize(text)
 
-      "<p>#{emojified}</p>"
+      "<p>#{emojified}</p>\n"
     end
 
     def link(link, title, content)
