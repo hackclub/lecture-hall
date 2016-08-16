@@ -5,6 +5,12 @@ class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
 
+    def paragraph(text)
+        emojified = EmojiParser.detokenize(text)
+
+        "<p>#{emojified}</p>"
+    end
+
     def link(link, title, content)
       if link.starts_with?("http")
         "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\" rel=\"noreferrer\">#{content}</a>"

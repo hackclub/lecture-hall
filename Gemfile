@@ -20,6 +20,7 @@ gem 'redcarpet'
 gem 'rouge'
 gem 'omniauth-github'
 gem 'analytics-ruby', require: 'segment'
+gem 'gemoji-parser'
 
 group :development, :test do
   gem 'dotenv-rails'
