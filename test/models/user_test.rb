@@ -25,4 +25,9 @@ class UserTest < ActiveSupport::TestCase
       @user.projects.create(name: 'Test')
     end
   end
+
+  test 'access token is required' do
+    @user.access_token = nil
+    assert_not @user.valid?
+  end
 end
