@@ -9,9 +9,24 @@ class ProjectsController < ApplicationController
   end
 
   def validate_github_url
+    begin
+      url = params[:url]
+
+      client = Octokit::Client.new(access_token: current_user.access_token)
+      repo = client.repository(parse_github_url(url))
+
+      render json: { valid: true }
+    rescue Octokit::InvalidRepository, Octokit::NotFound, ArgumentError
+      render json: { valid: false }, status: 422
+    end
   end
 
   private
+
+  def parse_github_url(url)
+    username, repo = URI(url).path.split('/').last(2)
+    [username, repo].join('/')
+  end
 
   def project_params
     params.permit(:name, :live_url)

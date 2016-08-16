@@ -1,39 +1,78 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
-  test 'project creation with valid info' do
-    get '/auth/github/callback'
+  class CreateTest < ProjectsControllerTest
+    test 'with valid info' do
+      get '/auth/github/callback'
 
-    assert_difference('Project.count') do
-      post '/projects', params: {
-             name: 'Personal Website',
-             live_url: 'https://prophetorpheus.github.io'
-           },
-           xhr: true,
-           as: :json
+      assert_difference('Project.count') do
+        post '/projects', params: {
+               name: 'Personal Website',
+               live_url: 'https://prophetorpheus.github.io'
+             },
+             xhr: true,
+             as: :json
+      end
+
+      assert_equal 'application/json', @response.content_type
+      assert_response 200, @response.status
+
+      parsed_response = JSON.parse(@response.body)
+
+      assert parsed_response['id']
+      assert_equal parsed_response['name'], 'Personal Website'
+      assert_equal parsed_response['live_url'], 'https://prophetorpheus.github.io'
     end
 
-    assert_equal 'application/json', @response.content_type
-    assert_response 200, @response.status
+    test 'with invalid info' do
+      get '/auth/github/callback'
 
-    parsed_response = JSON.parse(@response.body)
+      post '/projects', params: {}, xhr: true, as: :json
 
-    assert parsed_response['id']
-    assert_equal parsed_response['name'], 'Personal Website'
-    assert_equal parsed_response['live_url'], 'https://prophetorpheus.github.io'
+      assert_equal 'application/json', @response.content_type
+      assert_response 422
+
+      assert_equal "Name can't be blank", JSON.parse(@response.body)['errors'].first
+    end
   end
 
-  test 'project creation with invalid info' do
-    get '/auth/github/callback'
+  class ValidateGithubUrlTest < ProjectsControllerTest
+    def setup
+      super
 
-    post '/projects', params: {}, xhr: true, as: :json
+      get '/auth/github/callback'
+    end
 
-    assert_equal 'application/json', @response.content_type
-    assert_response 422, @response.status
+    test 'with valid url' do
+      get '/projects/validate_github_url',
+          params: {
+            url: 'https://github.com/hackclub/hackclub'
+          },
+          xhr: true,
+          as: :json
 
-    assert_equal "Name can't be blank", JSON.parse(@response.body)['errors'].first
-  end
+      assert_equal 'application/json', @response.content_type
+      assert_response 200
+    end
 
-  test 'GitHub URL validation' do
+    test 'with invalid url' do
+      get '/projects/validate_github_url',
+          params: {},
+          xhr: true
+
+      assert_equal 'application/json', @response.content_type
+      assert_response 422
+    end
+
+    test "with repo that doesn't exist" do
+      get '/projects/validate_github_url',
+          params: {
+            url: "https://github.com/#{SecureRandom.hex}_this_repository/does_not_exist"
+          },
+          xhr: true
+
+      assert_equal 'application/json', @response.content_type
+      assert_response 404
+    end
   end
 end
