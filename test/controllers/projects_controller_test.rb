@@ -64,6 +64,20 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    test "with valid repo, but no protocol" do
+      VCR.use_cassette "validate_github_url/valid_repo",
+                       match_requests_on: [:method, :uri] do
+        get "/projects/validate_github_url",
+            params: {
+              url: "github.com/hackclub/hackclub"
+            },
+            xhr: true
+
+        assert_equal "application/json", @response.content_type
+        assert_response 200
+      end
+    end
+
     test "with invalid url" do
       get "/projects/validate_github_url",
           params: {},

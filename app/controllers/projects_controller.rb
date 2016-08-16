@@ -27,6 +27,12 @@ class ProjectsController < ApplicationController
     uri = URI(url)
     segments = uri.path.split("/")
 
+    # Add a schema if one isn't already there
+    if !uri.scheme
+      uri = URI("https://#{url}")
+    end
+
+    # Make sure everything is kosher
     if uri.host != "github.com"
       throw ArgumentError
     elsif segments.length != 3 # [ "", "username", "repo" ]
