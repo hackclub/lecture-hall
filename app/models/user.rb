@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :projects
 
+  validates_presence_of :access_token
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider     = auth[:provider]
