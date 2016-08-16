@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 VCR.configure do |config|
-  config.cassette_library_dir = Rails.root.join('test', 'vcr', 'cassettes')
+  config.cassette_library_dir = Rails.root.join("test", "vcr", "cassettes")
   config.hook_into :webmock
 end
 

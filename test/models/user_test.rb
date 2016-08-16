@@ -7,23 +7,23 @@ class UserTest < ActiveSupport::TestCase
   end
 
   class AttributesTest < UserTest
-    test 'has many projects' do
-      assert_difference '@user.projects.count' do
-        @user.projects.create(name: 'Test')
+    test "has many projects" do
+      assert_difference "@user.projects.count" do
+        @user.projects.create(name: "Test")
       end
     end
 
-    test 'uid is required' do
+    test "uid is required" do
       @user.uid = nil
       assert_not @user.valid?
     end
 
-    test 'provider is required' do
+    test "provider is required" do
       @user.provider = nil
       assert_not @user.valid?
     end
 
-    test 'access token is required' do
+    test "access token is required" do
       @user.access_token = nil
       assert_not @user.valid?
     end

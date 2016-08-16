@@ -76,7 +76,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     # Finally, for the access token
     @mock_auth[:credentials][:token] = NEW_ACCESS_TOKEN
 
-    get '/auth/github/callback'
+    get "/auth/github/callback"
     updated_user = User.last
 
     assert_equal NEW_NAME, updated_user.name
