@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
       url = params[:url]
 
       client = Octokit::Client.new(access_token: current_user.access_token)
-      repo = client.repository(parse_github_url(url))
+      client.repository(parse_github_url(url))
 
       render json: { valid: true }
     rescue Octokit::NotFound
@@ -26,8 +26,8 @@ class ProjectsController < ApplicationController
   private
 
   def parse_github_url(url)
-    username, repo = URI(url).path.split('/').last(2)
-    [username, repo].join('/')
+    username, repo = URI(url).path.split("/").last(2)
+    [username, repo].join("/")
   end
 
   def project_params
