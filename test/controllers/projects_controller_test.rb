@@ -6,7 +6,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       get "/auth/github/callback"
 
       assert_difference("Project.count") do
-        post "/projects", params: {
+        post "/projects",
+             params: {
                name: "Personal Website",
                live_url: "https://prophetorpheus.github.io"
              },
@@ -21,7 +22,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
       assert parsed_response["id"]
       assert_equal parsed_response["name"], "Personal Website"
-      assert_equal parsed_response["live_url"], "https://prophetorpheus.github.io"
+      assert_equal(
+        parsed_response["live_url"],
+        "https://prophetorpheus.github.io"
+      )
     end
 
     test "with invalid info" do
@@ -32,7 +36,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       assert_equal "application/json", @response.content_type
       assert_response 422
 
-      assert_equal "Name can't be blank", JSON.parse(@response.body)["errors"].first
+      assert_equal(
+        "Name can't be blank",
+        JSON.parse(@response.body)["errors"].first
+      )
     end
   end
 
@@ -44,7 +51,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "with valid url repo" do
-      VCR.use_cassette "validate_github_url/valid_repo", match_requests_on: [ :method, :uri ] do
+      VCR.use_cassette "validate_github_url/valid_repo",
+                       match_requests_on: [:method, :uri] do
         get "/projects/validate_github_url",
             params: {
               url: "https://github.com/hackclub/hackclub"
@@ -67,7 +75,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     test "with repo that doesn't exist" do
       VCR.use_cassette "validate_github_url/nonexistant_repo",
-                       match_requests_on: [ :method, :uri ] do
+                       match_requests_on: [:method, :uri] do
         get "/projects/validate_github_url",
             params: {
               url: "https://github.com/this_repository/does_not_exist"

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/sign_out', to: 'sessions#destroy'
 
   resources :projects, only: :create do
-    get 'validate_github_url', on: :collection
+    get "validate_github_url", on: :collection
   end
 
   get '/', to: 'workshops#index'
