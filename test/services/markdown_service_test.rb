@@ -9,6 +9,14 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     assert_equal(output, expected)
   end
 
+  test 'it parses emoji' do
+    input = 'Test :see_no_evil: :speak_no_evil: :hear_no_evil'
+    expected = '<p>Test 🙈 🙊 🙉</p>'
+    output = MarkdownService.new.render(input)
+
+    assert_equal(output, expected)
+  end
+
   test 'it automatically creates links' do
     input = 'https://example.com'
     expected = "<p><a href=\"https://example.com\" target=\"_blank\" rel=\"noreferrer\">https://example.com</a></p>\n"
