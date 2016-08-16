@@ -86,5 +86,27 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
         assert_response 404
       end
     end
+
+    test "with invalid host" do
+      get "/projects/validate_github_url",
+          params: {
+            url: "https://wrongwebsite.com/hackclub/hackclub"
+          },
+          xhr: true
+
+      assert_equal "application/json", @response.content_type
+      assert_response 422
+    end
+
+    test "with invalid path to repo" do
+      get "/projects/validate_github_url",
+          params: {
+            url: "https://github.com/wrong/hackclub/hackclub"
+          },
+          xhr: true
+
+      assert_equal "application/json", @response.content_type
+      assert_response 422
+    end
   end
 end

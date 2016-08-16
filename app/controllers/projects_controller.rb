@@ -24,7 +24,16 @@ class ProjectsController < ApplicationController
   private
 
   def parse_github_url(url)
-    username, repo = URI(url).path.split("/").last(2)
+    uri = URI(url)
+    segments = uri.path.split("/")
+
+    if uri.host != "github.com"
+      throw ArgumentError
+    elsif segments.length != 3 # [ "", "username", "repo" ]
+      throw ArgumentError
+    end
+
+    username, repo = segments.last(2)
     [username, repo].join("/")
   end
 
