@@ -6,9 +6,9 @@ class MarkdownService
     include Rouge::Plugins::Redcarpet
 
     def paragraph(text)
-        emojified = EmojiParser.detokenize(text)
+      emojified = EmojiParser.detokenize(text)
 
-        "<p>#{emojified}</p>"
+      "<p>#{emojified}</p>"
     end
 
     def link(link, title, content)
