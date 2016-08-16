@@ -12,7 +12,7 @@
   margin-bottom: 20px;
 }
 
-/* All links */
+// All links
 .workshop-sidebar .nav > li > a {
   color: #999;
   border-left: 2px solid transparent;
@@ -21,7 +21,7 @@
   font-weight: 400;
 }
 
-/* Nested links */
+// Nested links
 .workshop-sidebar .nav .nav > li > a {
   padding-top: 1px;
   padding-bottom: 1px;
@@ -29,7 +29,7 @@
   font-size: 12px;
 }
 
-/* Active & hover links */
+// Active & hover links
 .workshop-sidebar .nav > .active > a,
 .workshop-sidebar .nav > li > a:hover,
 .workshop-sidebar .nav > li > a:focus {
@@ -39,58 +39,58 @@
   border-left-color: #563d7c;
 }
 
-/* All active links */
+// All active links
 .workshop-sidebar .nav > .active > a,
 .workshop-sidebar .nav > .active:hover > a,
 .workshop-sidebar .nav > .active:focus > a {
   font-weight: 700;
 }
 
-/* Nested active links */
+// Nested active links
 .workshop-sidebar .nav .nav> .active > a,
 .workshop-sidebar .nav .nav> .active:hover > a,
 .workshop-sidebar .nav .nav> .active:focus > a {
   font-weight: 500;
 }
 
-/* Hide inactive nested list */
+// Hide inactive nested list
 .workshop-sidebar .nav ul.nav {
   display: none;
 }
 
-/* Show active nested list */
+// Show active nested list
 .workshop-sidebar .nav > .active > ul.nav {
   display: block;
 }
 
-/* Shipped projects button */
+// Shipped projects button
 .shipped-projects-button {
-  border: none;
+  border: 0;
   border-radius: 1px;
   margin: 0 auto;
   text-align: center;
-  color: white;
+  color: $white;
   background: $red;
   background-image: linear-gradient(to top right, $red, $purple);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 
   &:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    color: white;
-    transform: translate(0px, -0.5rem);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    color: $white;
+    transform: translate(0, -0.5rem);
   }
 
   &:focus {
-    color: white;
+    color: $white;
     outline: none;
 
     &:active {
       background: $red;
       background-image: linear-gradient(to top right, $red, $purple);
-      box-shadow: 0 9px 22px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      box-shadow: 0 9px 22px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
       outline: none;
-      transform: translate(0px, -0.25rem);
+      transform: translate(0, -0.25rem);
     }
   }
 }
