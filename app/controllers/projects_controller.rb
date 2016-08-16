@@ -16,7 +16,9 @@ class ProjectsController < ApplicationController
       repo = client.repository(parse_github_url(url))
 
       render json: { valid: true }
-    rescue Octokit::InvalidRepository, Octokit::NotFound, ArgumentError
+    rescue Octokit::NotFound
+      render json: { valid: false }, status: 404
+    rescue Octokit::InvalidRepository, ArgumentError
       render json: { valid: false }, status: 422
     end
   end
