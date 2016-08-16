@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/hackclub/hackclub
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.3.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Tue, 16 Aug 2016 20:53:55 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '53'
+      X-Ratelimit-Reset:
+      - '1471382126'
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Vary:
+      - Accept
+      - Accept-Encoding
+      Etag:
+      - W/"d367e7ac7a59f3d177c6f8103df72e33"
+      Last-Modified:
+      - Tue, 16 Aug 2016 16:22:28 GMT
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Security-Policy:
+      - default-src 'none'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Served-By:
+      - 7f48e2f7761567e923121f17538d7a6d
+      X-Github-Request-Id:
+      - 43B4C7A7:2CFA2:EE721F:57B37D63
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":33744138,"name":"hackclub","full_name":"hackclub/hackclub","owner":{"login":"hackclub","id":5633654,"avatar_url":"https://avatars.githubusercontent.com/u/5633654?v=3","gravatar_id":"","url":"https://api.github.com/users/hackclub","html_url":"https://github.com/hackclub","followers_url":"https://api.github.com/users/hackclub/followers","following_url":"https://api.github.com/users/hackclub/following{/other_user}","gists_url":"https://api.github.com/users/hackclub/gists{/gist_id}","starred_url":"https://api.github.com/users/hackclub/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/hackclub/subscriptions","organizations_url":"https://api.github.com/users/hackclub/orgs","repos_url":"https://api.github.com/users/hackclub/repos","events_url":"https://api.github.com/users/hackclub/events{/privacy}","received_events_url":"https://api.github.com/users/hackclub/received_events","type":"Organization","site_admin":false},"private":false,"html_url":"https://github.com/hackclub/hackclub","description":"Hack
+        Club is the worldwide movement of free student-led coding clubs","fork":false,"url":"https://api.github.com/repos/hackclub/hackclub","forks_url":"https://api.github.com/repos/hackclub/hackclub/forks","keys_url":"https://api.github.com/repos/hackclub/hackclub/keys{/key_id}","collaborators_url":"https://api.github.com/repos/hackclub/hackclub/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/hackclub/hackclub/teams","hooks_url":"https://api.github.com/repos/hackclub/hackclub/hooks","issue_events_url":"https://api.github.com/repos/hackclub/hackclub/issues/events{/number}","events_url":"https://api.github.com/repos/hackclub/hackclub/events","assignees_url":"https://api.github.com/repos/hackclub/hackclub/assignees{/user}","branches_url":"https://api.github.com/repos/hackclub/hackclub/branches{/branch}","tags_url":"https://api.github.com/repos/hackclub/hackclub/tags","blobs_url":"https://api.github.com/repos/hackclub/hackclub/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/hackclub/hackclub/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/hackclub/hackclub/git/refs{/sha}","trees_url":"https://api.github.com/repos/hackclub/hackclub/git/trees{/sha}","statuses_url":"https://api.github.com/repos/hackclub/hackclub/statuses/{sha}","languages_url":"https://api.github.com/repos/hackclub/hackclub/languages","stargazers_url":"https://api.github.com/repos/hackclub/hackclub/stargazers","contributors_url":"https://api.github.com/repos/hackclub/hackclub/contributors","subscribers_url":"https://api.github.com/repos/hackclub/hackclub/subscribers","subscription_url":"https://api.github.com/repos/hackclub/hackclub/subscription","commits_url":"https://api.github.com/repos/hackclub/hackclub/commits{/sha}","git_commits_url":"https://api.github.com/repos/hackclub/hackclub/git/commits{/sha}","comments_url":"https://api.github.com/repos/hackclub/hackclub/comments{/number}","issue_comment_url":"https://api.github.com/repos/hackclub/hackclub/issues/comments{/number}","contents_url":"https://api.github.com/repos/hackclub/hackclub/contents/{+path}","compare_url":"https://api.github.com/repos/hackclub/hackclub/compare/{base}...{head}","merges_url":"https://api.github.com/repos/hackclub/hackclub/merges","archive_url":"https://api.github.com/repos/hackclub/hackclub/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/hackclub/hackclub/downloads","issues_url":"https://api.github.com/repos/hackclub/hackclub/issues{/number}","pulls_url":"https://api.github.com/repos/hackclub/hackclub/pulls{/number}","milestones_url":"https://api.github.com/repos/hackclub/hackclub/milestones{/number}","notifications_url":"https://api.github.com/repos/hackclub/hackclub/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/hackclub/hackclub/labels{/name}","releases_url":"https://api.github.com/repos/hackclub/hackclub/releases{/id}","deployments_url":"https://api.github.com/repos/hackclub/hackclub/deployments","created_at":"2015-04-10T18:28:39Z","updated_at":"2016-08-16T16:22:28Z","pushed_at":"2016-08-16T19:21:37Z","git_url":"git://github.com/hackclub/hackclub.git","ssh_url":"git@github.com:hackclub/hackclub.git","clone_url":"https://github.com/hackclub/hackclub.git","svn_url":"https://github.com/hackclub/hackclub","homepage":"https://hackclub.com","size":350734,"stargazers_count":230,"watchers_count":230,"language":"JavaScript","has_issues":true,"has_downloads":true,"has_wiki":false,"has_pages":false,"forks_count":90,"mirror_url":null,"open_issues_count":9,"forks":90,"open_issues":9,"watchers":230,"default_branch":"master","organization":{"login":"hackclub","id":5633654,"avatar_url":"https://avatars.githubusercontent.com/u/5633654?v=3","gravatar_id":"","url":"https://api.github.com/users/hackclub","html_url":"https://github.com/hackclub","followers_url":"https://api.github.com/users/hackclub/followers","following_url":"https://api.github.com/users/hackclub/following{/other_user}","gists_url":"https://api.github.com/users/hackclub/gists{/gist_id}","starred_url":"https://api.github.com/users/hackclub/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/hackclub/subscriptions","organizations_url":"https://api.github.com/users/hackclub/orgs","repos_url":"https://api.github.com/users/hackclub/repos","events_url":"https://api.github.com/users/hackclub/events{/privacy}","received_events_url":"https://api.github.com/users/hackclub/received_events","type":"Organization","site_admin":false},"network_count":90,"subscribers_count":24}'
+    http_version: 
+  recorded_at: Tue, 16 Aug 2016 20:53:55 GMT
+recorded_with: VCR 3.0.3

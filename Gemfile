@@ -25,6 +25,8 @@ gem 'octokit'
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'webmock'
+  gem 'vcr'
   gem 'byebug', platform: :mri
 end
 
