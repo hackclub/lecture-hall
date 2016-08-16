@@ -2,3 +2,5 @@ basic:
   provider: github
   uid: 1337
   name: Example User
+  email: example@example.com
+  access_token: <%= SecureRandom.hex(32) %>
