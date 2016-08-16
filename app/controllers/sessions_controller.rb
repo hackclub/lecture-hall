@@ -7,10 +7,12 @@ class SessionsController < ApplicationController
     ) || User.create_with_omniauth(auth)
 
     # Update user with latest info from GitHub
-    auth_info_params = ActionController::Parameters.new(auth)
-                  .require(:info)
-                  .permit(:name, :email)
-    user.assign_attributes(auth_info_params)
+    new_attributes = {
+      name: auth[:info][:name],
+      email: auth[:info][:email],
+      access_token: auth[:credentials][:token]
+    }
+    user.assign_attributes(new_attributes)
     user.save if user.changed?
 
     sign_in user
