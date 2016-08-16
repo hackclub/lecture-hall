@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
     segments = uri.path.split("/")
 
     # Add a schema if one isn't already there
-    if !uri.scheme
+    unless uri.scheme
       uri = URI("https://#{url}")
     end
 
