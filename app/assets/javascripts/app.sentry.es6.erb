@@ -1,0 +1,13 @@
+class AppSentry {
+  constructor() {
+    let dsn = "<%= Rails.application.secrets.sentry_public_dsn %>";
+    if (dsn) {
+      this.sentry = this._sentry(dsn);
+    }
+  }
+
+  _sentry(dsn) {
+    Raven.config(dsn).install();
+    return Raven;
+  }
+}
