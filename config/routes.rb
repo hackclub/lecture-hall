@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get "/", to: "workshops#index"
   get "/:path/", to: "workshops#handle_root_request"
-  get "/:workshop/*file", to: "workshops#render_workshop_file", constraints: {
-        file: /.*/
-      }
+  get "/:workshop/*file",
+      to: "workshops#render_workshop_file",
+      constraints: { file: /.*/ }
 end

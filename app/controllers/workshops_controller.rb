@@ -1,7 +1,7 @@
 class WorkshopsController < ApplicationController
 
   def index
-    path = workshops_path.join('README.md')
+    path = workshops_path.join("README.md")
 
     render_md_file(path)
   end
@@ -29,7 +29,7 @@ class WorkshopsController < ApplicationController
         raise ActionController::MissingFile
       end
     rescue Errno::ENOENT, ActionController::MissingFile
-      raise ActionController::RoutingError, 'File Not Found'
+      raise ActionController::RoutingError, "File Not Found"
     end
   end
 
@@ -41,7 +41,7 @@ class WorkshopsController < ApplicationController
 
       deliver_file path
     rescue Errno::ENOENT, ActionController::MissingFile
-      raise ActionController::RoutingError, 'File Not Found'
+      raise ActionController::RoutingError, "File Not Found"
     end
   end
 
@@ -49,10 +49,10 @@ class WorkshopsController < ApplicationController
 
   def render_workshop(workshop_path)
     begin
-      path = workshops_path.join(workshop_path, 'README.md')
+      path = workshops_path.join(workshop_path, "README.md")
       @title = File.basename(workshop_path).to_s.humanize.titleize
       @metadata_page_name = @title
-      @metadata_page_category = 'Workshop'
+      @metadata_page_category = "Workshop"
       @metadata_should_not_track_page = true if signed_in?
 
       render_md_file path
@@ -60,7 +60,7 @@ class WorkshopsController < ApplicationController
       url = request.url
       analytics.track_workshop_view(@title, url) if signed_in?
     rescue Errno::ENOENT
-      raise ActionController::RoutingError, 'Workshop Not Found'
+      raise ActionController::RoutingError, "Workshop Not Found"
     end
   end
 
@@ -88,6 +88,6 @@ class WorkshopsController < ApplicationController
   end
 
   def workshops_path
-    Rails.root.join('vendor', 'hackclub', 'workshops')
+    Rails.root.join("vendor", "hackclub", "workshops")
   end
 end
