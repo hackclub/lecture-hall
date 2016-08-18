@@ -17,7 +17,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Hack Club Workshops'
   end
 
-  test 'renders root-level markdown files' do
+  test 'renders markdown files in root' do
     get '/CONTRIBUTING.md'
 
     # The page title should include file name and 'Hack Club Workshops'
@@ -27,10 +27,18 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.workshop-sidebar > ul > li > a'
   end
 
-  test 'serves non-markdown files from root workshops directory' do
+  test 'serves non-markdown files from root' do
     path = Rails.root.join('vendor', 'hackclub', 'workshops', 'test.txt')
     FileUtils.touch(path)
     get '/test.txt'
+    FileUtils.rm(path)
+    assert_response :success
+  end
+
+  test 'serves files without extensions from root' do
+    path = Rails.root.join('vendor', 'hackclub', 'workshops', 'test')
+    FileUtils.touch(path)
+    get '/test'
     FileUtils.rm(path)
     assert_response :success
   end
