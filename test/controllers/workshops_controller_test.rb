@@ -59,33 +59,33 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Personal Website | Hack Club Workshops"
   end
 
-<<<<<<< 5fff1bfce34889cecccf7ddb64f26a6c98f922a6
-  test 'passes correct page tracking metadata' do
-    # view the workshop without signing in
-    get '/personal_website/'
-=======
-  test "passes metadata to analytics on workshop view" do
+  test "passes correct page tracking metadata" do
+    # View workshop without signing in
     get "/personal_website/"
->>>>>>> Format tests to comply with houndci
 
     expected = nil
     actual = @controller.instance_variable_get(:@metadata_should_not_track_page)
 
-<<<<<<< 5fff1bfce34889cecccf7ddb64f26a6c98f922a6
     assert_equal expected, actual
 
-    # sign in and view the workshop
-    get '/auth/github/callback'
-    get '/personal_website/'
+    # View workshop after signing in
+    get "/auth/github/callback"
+    get "/personal_website/"
 
     expected = true
     actual = @controller.instance_variable_get(:@metadata_should_not_track_page)
 
     assert_equal expected, actual
-=======
+  end
+
+  test "passes metadata to analytics on workshop view" do
+    get "/personal_website/"
+
+    page_name = @controller.instance_variable_get(:@metadata_page_name)
+    page_category = @controller.instance_variable_get(:@metadata_page_category)
+
     assert_equal "Personal Website", page_name
     assert_equal "Workshop", page_category
->>>>>>> Format tests to comply with houndci
   end
 
   test "redirects workshops when no trailing slash" do
