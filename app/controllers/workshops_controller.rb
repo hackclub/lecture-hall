@@ -66,14 +66,14 @@ class WorkshopsController < ApplicationController
 
   def deliver_file(path)
     begin
-      if File.extname(path) == '.md'
+      if File.extname(path) == ".md"
         @title = File.basename path
         render_md_file path
       else
         send_file path
       end
     rescue Errno::ENOENT
-      raise ActionController::RoutingError, 'Workshop Not Found'
+      raise ActionController::RoutingError, "File Not Found"
     end
   end
 
