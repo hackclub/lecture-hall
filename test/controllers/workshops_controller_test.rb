@@ -118,11 +118,13 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "README.md | Hack Club Workshops"
   end
 
-  test "returns 404 when regular file doesn't exist" do
+  test "returns 404 when regular workshop file doesn't exist" do
     assert_raises ActionController::RoutingError do
       get "/personal_website/fake_file.png"
     end
+  end
 
+  test "returns 404 when root regular file doesn't exist" do
     assert_raises ActionController::RoutingError do
       get "/fake.txt"
     end
@@ -132,7 +134,9 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_raises ActionController::RoutingError do
       get "/personal_website/FAKE.md"
     end
+  end
 
+  test "returns 404 when root markdown file doesn't exist" do
     assert_raises ActionController::RoutingError do
       get "/fake.md"
     end
