@@ -1,5 +1,6 @@
 class WorkshopsController < ApplicationController
   before_action :ensure_trailing_slash, only: :render_workshop
+  before_action :redirect_if_readme, only: :render_file
 
   def index
     path = workshops_path.join('README.md')
@@ -52,6 +53,10 @@ class WorkshopsController < ApplicationController
     @workshop_html = md.render(contents).html_safe
 
     render :show_md_file
+  end
+
+  def redirect_if_readme
+    redirect_to "/#{ params[:workshop] }/" if params[:file] == 'README.md'
   end
 
   def workshops_path
