@@ -58,6 +58,12 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/personal_website/'
   end
 
+  test 'redirects workshops when requesting README.md' do
+    get '/personal_website/README.md'
+
+    assert_redirected_to '/personal_website/'
+  end
+
   test "returns 404 when workshop doesn't exist" do
     assert_raises ActionController::RoutingError do
       get '/invalid_workshop/'
@@ -71,15 +77,15 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'renders markdown files from workshops' do
-    get '/personal_website/README.md'
+    get '/personal_website/'
 
     assert_select '.workshop-contents > h1', 'Personal Website'
   end
 
   test 'title with markdown files in workshops' do
-    get '/personal_website/README.md'
+    get '/personal_website/'
 
-    assert_select 'title', 'README.md | Hack Club Workshops'
+    assert_select 'title', 'Personal Website | Hack Club Workshops'
   end
 
   test "returns 404 when regular file doesn't exist" do
