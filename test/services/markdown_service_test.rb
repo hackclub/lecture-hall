@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'test_helper'
 
 class MarkdownServiceTest < ActiveSupport::TestCase
@@ -10,8 +11,8 @@ class MarkdownServiceTest < ActiveSupport::TestCase
   end
 
   test 'it parses emoji' do
-    input = 'Test :see_no_evil: :speak_no_evil: :hear_no_evil:'
-    expected = "<p>Test 🙈 🙊 🙉</p>\n"
+    input = 'Test :see_no_evil:'
+    expected = %Q(<p>Test <img src="/images/emoji/unicode/1f648.png" alt=":see_no_evil:" class="emoji"></p>\n)
     output = MarkdownService.new.render(input)
 
     assert_equal(expected, output)
