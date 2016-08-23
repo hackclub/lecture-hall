@@ -21,6 +21,7 @@ gem 'rouge'
 gem 'omniauth-github'
 gem 'analytics-ruby', require: 'segment'
 gem 'sentry-raven'
+gem 'gemoji-parser'
 
 group :development, :test do
   gem 'dotenv-rails'

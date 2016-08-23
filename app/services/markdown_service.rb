@@ -5,6 +5,15 @@ class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
 
+    def preprocess(doc)
+      EmojiParser.parse(doc) do |emoji|
+        img = %(<img src="/images/emoji/#{emoji.image_filename}" ) +
+              %(alt=":#{emoji.name}:" class="emoji">)
+
+        img.html_safe
+      end
+    end
+
     def link(link, title, content)
       if link.starts_with?("http")
         "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\" rel=\"noreferrer\">#{content}</a>"
