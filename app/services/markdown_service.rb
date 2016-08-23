@@ -5,10 +5,8 @@ class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
 
-    def paragraph(text)
-      emojified = EmojiParser.detokenize(text)
-
-      "<p>#{emojified}</p>\n"
+    def preprocess(doc)
+      EmojiParser.detokenize(doc)
     end
 
     def link(link, title, content)
