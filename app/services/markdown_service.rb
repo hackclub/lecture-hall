@@ -7,7 +7,10 @@ class MarkdownService
 
     def preprocess(doc)
       EmojiParser.parse(doc) do |emoji|
-        %Q(<img src="/images/emoji/#{emoji.image_filename}" alt=":#{emoji.name}:" class="emoji">).html_safe
+        img = %(<img src="/images/emoji/#{emoji.image_filename}" ) +
+              %(alt=":#{emoji.name}:" class="emoji">)
+
+        img.html_safe
       end
     end
 
