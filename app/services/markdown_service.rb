@@ -7,7 +7,8 @@ class MarkdownService
 
     def link(link, title, content)
       if link.starts_with?("http")
-        %(<a href="#{link}" title="#{title}" target="_blank" rel="noreferrer">#{content}</a>)
+        %(<a href="#{link}" title="#{title}" target="_blank" ) +
+          %(rel="noreferrer">#{content}</a>)
       else
         %(<a href="#{link}" title="#{title}">#{content}</a>)
       end
@@ -61,8 +62,10 @@ class MarkdownService
       parent_level = 2
       child_level = 3
 
-      html = %(<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">\n) +
-             %(  <ul id="sidebar" class="nav nav-stacked fixed">\n)
+      html = %(
+<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
+  <ul id="sidebar" class="nav nav-stacked fixed">
+).lstrip
 
       html += @outline.inject('') do |html, data|
         level, text = data
