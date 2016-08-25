@@ -1,5 +1,5 @@
 <h3>Submit a project</h3>
-<%= form_tag('/projects', method: 'post') do %>
+<%= form_tag('/projects', method: 'post', id: 'project-submit-form') do %>
   <div class="form-group">
     <%= label_tag :project_name %>
     <%= text_field_tag :name, nil, placeholder: 'Coder Dino', class: 'form-control' %>
@@ -13,6 +13,9 @@
     <%= text_field_tag :github_url, nil, placeholder: 'https://github.com/prophetorpheus/prophetorpheus.github.io', class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= submit_tag nil, class: 'btn btn-default form-control' %>
+    <div id="form-alert-container"></div>
+  </div>
+  <div class="form-group">
+    <%= submit_tag nil, class: 'btn btn-default form-control', id: 'project-submit' %>
   </div>
 <% end %>
