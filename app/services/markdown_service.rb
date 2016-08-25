@@ -32,7 +32,7 @@ class MarkdownService
     def postprocess(text)
       text.gsub(
         /<!-- {{button: (.*?)}} -->/,
-        "<button class=\"btn btn-lg shipped-projects-button\">\\1</button>"
+        "<button class=\"btn btn-lg new-project-btn\">\\1</button>"
       )
     end
   end
