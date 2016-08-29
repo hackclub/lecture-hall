@@ -2,6 +2,11 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+VCR.configure do |config|
+  config.cassette_library_dir = Rails.root.join("test", "vcr", "cassettes")
+  config.hook_into :webmock
+end
+
 class ActiveSupport::TestCase
   include SessionsHelper
 
@@ -21,6 +26,9 @@ class ActiveSupport::TestCase
         info: {
           name: 'Prophet Orpheus',
           email: 'prophetorpheus@hackclub.com'
+        },
+        credentials: {
+          token: SecureRandom.hex
         }
       }
     )

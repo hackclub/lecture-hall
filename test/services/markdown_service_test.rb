@@ -150,4 +150,13 @@ console.log('test');
     assert_equal(expected1, output1)
     assert_equal(expected2, output2)
   end
+
+  test "renders project submit buttons from markdown comments" do
+    input = "<!-- {{button: I've pushed to GitHub}} -->"
+    expected = "<button class=\"btn btn-lg new-project-btn\">I've"\
+               " pushed to GitHub</button>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(output, expected)
+  end
 end

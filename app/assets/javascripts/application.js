@@ -31,3 +31,4 @@
 // Page specific logic
 //
 //= require workshops
+//= require projects_form
