@@ -6,7 +6,7 @@ $(document).on('turbolinks:load', () => {
 
   // Hijack the default submit action
   $('#project-submit-form').submit(event => {
-    $('#project-submit').addClass('disabled');
+    $('.project-submit').addClass('disabled');
     $('#form-alert-container').html('');
 
     let showAlert = errMsg => {
@@ -27,12 +27,12 @@ $(document).on('turbolinks:load', () => {
       },
       'type': 'POST',
       'success': () => {
-        $('#project-submit').addClass('has-success');
-        $('#project-submit').val('Success!');
+        $('.project-submit').addClass('has-success');
+        $('.project-submit').val('Success!');
         setTimeout(() => {
           $('#project-submission-form').modal('hide');
-          $('#project-submit').removeClass('has-success');
-          $('#project-submit').val('Submit');
+          $('.project-submit').removeClass('has-success');
+          $('.project-submit').val('Submit');
           $('#name').val('');
           $('#live_url').val('');
           $('#github_url').val('');
@@ -51,7 +51,7 @@ $(document).on('turbolinks:load', () => {
         }
       },
       'complete': () => {
-        $('#project-submit')
+        $('.project-submit')
           .removeClass('disabled')
           .blur();
       }

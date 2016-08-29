@@ -25,7 +25,7 @@ class MarkdownService
 
     # type can be either "url" or "email", but I doubt email links will be used
     # much if at all. So this only addresses the "url" case
-    def autolink(link,type)
+    def autolink(link,type) 
       %(<a href="#{link}" target="_blank" rel="noreferrer">#{link}</a>)
     end
 
