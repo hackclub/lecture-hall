@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     sign_in user
     analytics.track_user_sign_in
 
-    redirect_to '/', notice: 'Signed in!'
+    redirect_to request.env['omniauth.origin'] || '/', notice: 'Signed in!'
   end
 
   def destroy

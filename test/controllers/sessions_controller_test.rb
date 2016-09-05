@@ -76,8 +76,19 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   end
 
-  test 'redirects user to root' do
-    get '/auth/github/callback'
+  test 'redirects user to previous page if HTTP_REFERER is set' do
+    get '/auth/github', headers: {
+          'HTTP_REFERER' => 'http://www.example.com/personal_website/'
+        }
+    follow_redirect!
+
+    assert_redirected_to '/personal_website/'
+  end
+
+  test 'redirects user to root if HTTP_REFERER is not set' do
+    get '/auth/github'
+    follow_redirect!
+
     assert_redirected_to '/'
   end
 
