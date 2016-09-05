@@ -1,36 +1,36 @@
-require 'test_helper'
+require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   # create
 
-  test 'creates a user' do
+  test "creates a user" do
     orig = User.count
-    get '/auth/github/callback'
+    get "/auth/github/callback"
 
     assert_equal(orig+1, User.count)
   end
 
-  test 'creates a session' do
-    get '/'
+  test "creates a session" do
+    get "/"
 
     assert_equal(nil, session[:user_id])
 
-    get '/auth/github/callback'
+    get "/auth/github/callback"
 
     assert_not_equal(nil, session[:user_id])
   end
 
-  test 'records correct user details' do
-    get '/auth/github/callback'
+  test "records correct user details" do
+    get "/auth/github/callback"
     user = User.last
 
-    assert_equal(user.name, 'Prophet Orpheus')
-    assert_equal(user.email, 'prophetorpheus@hackclub.com')
+    assert_equal(user.name, "Prophet Orpheus")
+    assert_equal(user.email, "prophetorpheus@hackclub.com")
   end
 
-  test 'updates user details on login' do
-    NEW_NAME = 'Mr. Robot'
-    NEW_EMAIL = 'different@hackclub.com'
+  test "updates user details on login" do
+    NEW_NAME = "Mr. Robot".freeze
+    NEW_EMAIL = "different@hackclub.com".freeze
 
     # FYI: @mock_auth is declared in test_helper.rb and is used as the auth hash
     # when using OmniAuth in tests. This verified that our new values aren't
@@ -40,7 +40,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     # Confirm that the user created with the default auth hash doesn't match our
     # new values
-    get '/auth/github/callback'
+    get "/auth/github/callback"
     old_user = User.last
 
     assert_not_equal old_user.name, NEW_NAME
@@ -51,7 +51,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     # Try changing just the name
     @mock_auth[:info][:name] = NEW_NAME
 
-    get '/auth/github/callback'
+    get "/auth/github/callback"
     updated_user = User.last
 
     assert_equal NEW_NAME, updated_user.name
@@ -62,62 +62,62 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     # Now for the email
     @mock_auth[:info][:email] = NEW_EMAIL
 
-    get '/auth/github/callback'
+    get "/auth/github/callback"
     updated_user = User.last
 
     assert_equal NEW_NAME, updated_user.name
     assert_equal NEW_EMAIL, updated_user.email
   end
 
-  test 'tracks sign in in analytics' do
-    get '/auth/github/callback'
+  test "tracks sign in in analytics" do
+    get "/auth/github/callback"
 
     assert_has_tracked_event(AnalyticsService::USER_SIGN_IN)
 
   end
 
-  test 'redirects user to previous page if HTTP_REFERER is set' do
-    get '/auth/github', headers: {
-          'HTTP_REFERER' => 'http://www.example.com/personal_website/'
-        }
+  test "redirects user to previous page if HTTP_REFERER is set" do
+    get "/auth/github", headers: {
+      "HTTP_REFERER" => "http://www.example.com/personal_website/"
+    }
     follow_redirect!
 
-    assert_redirected_to '/personal_website/'
+    assert_redirected_to "/personal_website/"
   end
 
-  test 'redirects user to root if HTTP_REFERER is not set' do
-    get '/auth/github'
+  test "redirects user to root if HTTP_REFERER is not set" do
+    get "/auth/github"
     follow_redirect!
 
-    assert_redirected_to '/'
+    assert_redirected_to "/"
   end
 
   # destroy
 
-  test 'clears the session' do
-    get '/auth/github/callback'
+  test "clears the session" do
+    get "/auth/github/callback"
 
     assert_not_equal(nil, session[:user_id])
 
-    get '/sign_out'
+    get "/sign_out"
 
     assert_equal(nil, session[:user_id])
   end
 
-  test 'tracks sign out in analytics' do
-    get '/auth/github/callback'
+  test "tracks sign out in analytics" do
+    get "/auth/github/callback"
 
     user = User.last
 
-    get '/sign_out'
+    get "/sign_out"
 
     assert_has_tracked_event(AnalyticsService::USER_SIGN_OUT, user)
   end
 
-  test 'redirects to homepage' do
-    get '/auth/github/callback'
-    get '/sign_out'
+  test "redirects to homepage" do
+    get "/auth/github/callback"
+    get "/sign_out"
 
-    assert_redirected_to '/'
+    assert_redirected_to "/"
   end
 end
