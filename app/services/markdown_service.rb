@@ -5,18 +5,28 @@ class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
 
+    def preprocess(doc)
+      EmojiParser.parse(doc) do |emoji|
+        img = %(<img src="/images/emoji/#{emoji.image_filename}" ) +
+              %(alt=":#{emoji.name}:" class="emoji">)
+
+        img.html_safe
+      end
+    end
+
     def link(link, title, content)
       if link.starts_with?("http")
-        "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\" rel=\"noreferrer\">#{content}</a>"
+        %(<a href="#{link}" title="#{title}" target="_blank" ) +
+          %(rel="noreferrer">#{content}</a>)
       else
-        "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
+        %(<a href="#{link}" title="#{title}">#{content}</a>)
       end
     end
 
     # type can be either "url" or "email", but I doubt email links will be used
     # much if at all. So this only addresses the "url" case
     def autolink(link,type) 
-      "<a href=\"#{link}\" target=\"_blank\" rel=\"noreferrer\">#{link}</a>"
+      %(<a href="#{link}" target="_blank" rel="noreferrer">#{link}</a>)
     end
   end
 
@@ -61,8 +71,10 @@ class MarkdownService
       parent_level = 2
       child_level = 3
 
-      html = %Q(<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">\n) +
-             %Q(  <ul id="sidebar" class="nav nav-stacked fixed">\n)
+      html = %(
+<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
+  <ul id="sidebar" class="nav nav-stacked fixed">
+).lstrip
 
       html += @outline.inject('') do |html, data|
         level, text = data
@@ -117,7 +129,7 @@ class MarkdownService
     private
 
     def html_link(text)
-      %Q(<a href="##{id_slug text}">#{text}</a>)
+      %(<a href="##{id_slug text}">#{text}</a>)
     end
 
     # Converts the given text to a slug usable as an ID in HTML.

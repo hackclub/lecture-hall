@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_trailing_slash
-    redirect_to url_for(params.permit.merge(trailing_slash: true)) unless trailing_slash?
+    redirect_to url_for(params.permit.merge(trailing_slash: true))
   end
 
   def trailing_slash?

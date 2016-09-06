@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'test_helper'
 
 class MarkdownServiceTest < ActiveSupport::TestCase
@@ -6,7 +7,15 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     expected = "<p><em>test</em></p>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
+  end
+
+  test 'it parses emoji' do
+    input = 'Test :see_no_evil:'
+    expected = %Q(<p>Test <img src="/images/emoji/unicode/1f648.png" alt=":see_no_evil:" class="emoji"></p>\n)
+    output = MarkdownService.new.render(input)
+
+    assert_equal(expected, output)
   end
 
   test 'it automatically creates links' do
@@ -14,7 +23,7 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     expected = "<p><a href=\"https://example.com\" target=\"_blank\" rel=\"noreferrer\">https://example.com</a></p>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
   end
 
   test 'links to relative pages' do
@@ -22,7 +31,7 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     expected = "<p><a href=\"../page.md\" title=\"Title\">Content</a></p>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
   end
 
   test 'links to other pages in new tabs' do
@@ -30,7 +39,7 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     expected = "<p><a href=\"https://example.com\" title=\"Title\" target=\"_blank\" rel=\"noreferrer\">Content</a></p>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
   end
 
   test 'it supports tables' do
@@ -49,7 +58,7 @@ class MarkdownServiceTest < ActiveSupport::TestCase
     expected = "<p><del>test</del></p>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
   end
 
   test 'it supports fenced code blocks' do
@@ -68,7 +77,7 @@ console.log('test');
     expected = "<h1 id=\"test\">test</h1>\n"
     output = MarkdownService.new.render(input)
 
-    assert_equal(output, expected)
+    assert_equal(expected, output)
   end
 
   test 'it renders sidebars' do
