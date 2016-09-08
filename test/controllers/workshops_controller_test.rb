@@ -155,4 +155,22 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
 
     assert_has_not_tracked_page_view('Personal Website')
   end
+
+  test "Personal Website doesn't require authentication" do
+    get "/personal_website/"
+
+    assert_select ".modal-auth-wall", false
+  end
+
+  test "index requires authentication" do
+    get "/"
+
+    assert_select ".modal-auth-wall"
+  end
+
+  test "dodge requires authentication" do
+    get "/dodge/"
+
+    assert_select ".modal-auth-wall"
+  end
 end
