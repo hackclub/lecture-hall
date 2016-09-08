@@ -53,14 +53,15 @@ class MarkdownService
   class SidebarRenderer < Redcarpet::Render::Base
     attr_accessor :outline
 
-    def initialize
+    def initialize(md_parser)
       @outline = []
-      super
+      @md_parser = md_parser
+
+      super()
     end
 
     def header(text, level)
       @outline << [level, text]
-
       nil
     end
 
@@ -81,28 +82,28 @@ class MarkdownService
 
         if !in_section and level == parent_level
           html += "    <li>\n"\
-                  "      #{html_link text}\n"
+                  "      #{nav_link text}\n"
           in_section = true
         elsif in_section
           if level == child_level
             if !section_has_children
               html += %Q(      <ul class="nav nav-stacked">\n) +
-                      %Q(        <li>#{html_link text}</li>\n)
+                      %Q(        <li>#{nav_link text}</li>\n)
               section_has_children = true
             else
-              html += "        <li>#{html_link text}</li>\n"
+              html += "        <li>#{nav_link text}</li>\n"
             end
           elsif level == parent_level
             if section_has_children
               html += "      </ul>\n"\
                       "    </li>\n"\
                       "    <li>\n"\
-                      "      #{html_link text}\n"
+                      "      #{nav_link text}\n"
               section_has_children = false
             else
               html += "    </li>\n"\
                       "    <li>\n"\
-                      "      #{html_link text}\n"
+                      "      #{nav_link text}\n"
             end
           end
         end
@@ -128,8 +129,9 @@ class MarkdownService
 
     private
 
-    def html_link(text)
-      %(<a href="##{id_slug text}">#{text}</a>)
+    def nav_link(text)
+      rendered = @md_parser.render(text).strip
+      %(<a href="##{id_slug text}">#{rendered}</a>)
     end
 
     # Converts the given text to a slug usable as an ID in HTML.
@@ -149,12 +151,9 @@ class MarkdownService
   end
 
   def initialize
-    @sidebar_renderer = SidebarRenderer.new
     @renderer = Renderer.new(
       with_toc_data: true
     )
-
-    @sidebar_parser = Redcarpet::Markdown.new(@sidebar_renderer)
     @parser = Redcarpet::Markdown.new(
       @renderer,
       autolink: true,
@@ -162,6 +161,9 @@ class MarkdownService
       strikethrough: true,
       fenced_code_blocks: true,
     )
+
+    @sidebar_renderer = SidebarRenderer.new(@parser)
+    @sidebar_parser = Redcarpet::Markdown.new(@sidebar_renderer)
   end
 
   def render_sidebar(text)

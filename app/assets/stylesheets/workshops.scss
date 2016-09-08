@@ -62,3 +62,8 @@
 .workshop-sidebar .nav > .active > ul.nav {
   display: block;
 }
+
+/* Remove margin from p tags in links (created by Markdown renderer) */
+.workshop-sidebar .nav p {
+  margin: 0;
+}
