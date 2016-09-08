@@ -10,9 +10,7 @@
   </head>
 
   <body>
-    <% if signed_in? %>
-      <%= yield %>
-    <% else %>
+    <% if @auth_wall %>
       <div class="modal modal-center show" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-center modal-auth-wall" role="document">
           <div class="modal-content">
@@ -32,6 +30,8 @@
       <div class="auth-wall">
         <%= yield %>
       </div>
+    <% else %>
+      <%= yield %>
     <% end %>
     <%= render 'layouts/js_metadata' %>
   </body>

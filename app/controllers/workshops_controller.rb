@@ -1,4 +1,5 @@
 class WorkshopsController < ApplicationController
+  WORKSHOPS_WITHOUT_AUTH_WALL = [:personal_website].freeze
 
   def index
     path = workshops_path.join("README.md")
@@ -17,7 +18,9 @@ class WorkshopsController < ApplicationController
     if file_exists
       if is_workshop
         if trailing_slash?
-          render_workshop path
+          workshop_name = request_path
+
+          render_workshop workshop_name
         else
           ensure_trailing_slash
         end
@@ -43,12 +46,18 @@ class WorkshopsController < ApplicationController
 
   private
 
-  def render_workshop(workshop_path)
-    path = workshops_path.join(workshop_path, "README.md")
-    @title = File.basename(workshop_path).to_s.humanize.titleize
+  def render_workshop(workshop_name)
+    path = workshops_path.join(workshop_name, "README.md")
+
+    @title = workshop_name.humanize.titleize
+
     @metadata_page_name = @title
     @metadata_page_category = "Workshop"
     @metadata_should_not_track_page = true if signed_in?
+
+    if WORKSHOPS_WITHOUT_AUTH_WALL.include? workshop_name.to_sym
+      @auth_wall = false
+    end
 
     render_md_file path
 
