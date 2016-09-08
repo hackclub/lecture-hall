@@ -4,6 +4,7 @@ require 'rouge/plugins/redcarpet'
 class MarkdownService
   class Renderer < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
+    include Redcarpet::Render::SmartyPants
 
     def preprocess(doc)
       EmojiParser.parse(doc) do |emoji|
@@ -51,6 +52,8 @@ class MarkdownService
   #   </ul>
   # </nav>
   class SidebarRenderer < Redcarpet::Render::Base
+    include Redcarpet::Render::SmartyPants
+
     attr_accessor :outline
 
     def initialize(md_parser)

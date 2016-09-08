@@ -80,6 +80,22 @@ console.log('test');
     assert_equal(expected, output)
   end
 
+  test "it converts -- to an endash" do
+    input = "wow -- this is crazy!"
+    expected = "<p>wow &ndash; this is crazy!</p>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(expected, output)
+  end
+
+  test "it converts --- to an emdash" do
+    input = "some random --- text"
+    expected = "<p>some random &mdash; text</p>\n"
+    output = MarkdownService.new.render(input)
+
+    assert_equal(expected, output)
+  end
+
   # rubocop:disable Metrics/LineLength, Style/StringLiterals
   test 'it renders sidebars' do
     # Complete example where the last header has children
@@ -176,4 +192,18 @@ console.log('test');
     assert_equal(expected, actual)
   end
   # rubocop:enable Metrics/LineLength, Style/StringLiterals
+
+  test "sidebars convert -- to an endash" do
+    input = "## foo -- bar"
+    sidebar = MarkdownService.new.render_sidebar(input)
+
+    assert sidebar.include? "&ndash;"
+  end
+
+  test "sidebars convert --- to an emdash" do
+    input = "## foo --- bar"
+    sidebar = MarkdownService.new.render_sidebar(input)
+
+    assert sidebar.include? "&mdash;"
+  end
 end
