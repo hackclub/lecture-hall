@@ -80,6 +80,7 @@ console.log('test');
     assert_equal(expected, output)
   end
 
+  # rubocop:disable Metrics/LineLength, Style/StringLiterals
   test 'it renders sidebars' do
     # Complete example where the last header has children
     input1 = %Q(
@@ -174,4 +175,5 @@ console.log('test');
     actual = MarkdownService.new.render_sidebar(input)
     assert_equal(expected, actual)
   end
+  # rubocop:enable Metrics/LineLength, Style/StringLiterals
 end

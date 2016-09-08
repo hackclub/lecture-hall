@@ -87,8 +87,8 @@ class MarkdownService
         elsif in_section
           if level == child_level
             if !section_has_children
-              html += %Q(      <ul class="nav nav-stacked">\n) +
-                      %Q(        <li>#{nav_link text}</li>\n)
+              html += %(      <ul class="nav nav-stacked">\n) +
+                      %(        <li>#{nav_link text}</li>\n)
               section_has_children = true
             else
               html += "        <li>#{nav_link text}</li>\n"
