@@ -10,9 +10,14 @@
   padding-left: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+
+  // Remove margin from p tags in links (created by Markdown renderer)
+  p {
+    margin: 0;
+  }
 }
 
-/* All links */
+// All links
 .workshop-sidebar .nav > li > a {
   color: #999;
   border-left: 2px solid transparent;
@@ -21,7 +26,7 @@
   font-weight: 400;
 }
 
-/* Nested links */
+// Nested links
 .workshop-sidebar .nav .nav > li > a {
   padding-top: 1px;
   padding-bottom: 1px;
@@ -29,7 +34,7 @@
   font-size: 12px;
 }
 
-/* Active & hover links */
+// Active & hover links
 .workshop-sidebar .nav > .active > a,
 .workshop-sidebar .nav > li > a:hover,
 .workshop-sidebar .nav > li > a:focus {
@@ -39,26 +44,26 @@
   border-left-color: #563d7c;
 }
 
-/* All active links */
+// All active links
 .workshop-sidebar .nav > .active > a,
 .workshop-sidebar .nav > .active:hover > a,
 .workshop-sidebar .nav > .active:focus > a {
   font-weight: 700;
 }
 
-/* Nested active links */
+// Nested active links
 .workshop-sidebar .nav .nav> .active > a,
 .workshop-sidebar .nav .nav> .active:hover > a,
 .workshop-sidebar .nav .nav> .active:focus > a {
   font-weight: 500;
 }
 
-/* Hide inactive nested list */
+// Hide inactive nested list
 .workshop-sidebar .nav ul.nav {
   display: none;
 }
 
-/* Show active nested list */
+// Show active nested list
 .workshop-sidebar .nav > .active > ul.nav {
   display: block;
 }

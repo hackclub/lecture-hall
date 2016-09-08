@@ -80,6 +80,7 @@ console.log('test');
     assert_equal(expected, output)
   end
 
+  # rubocop:disable Metrics/LineLength, Style/StringLiterals
   test 'it renders sidebars' do
     # Complete example where the last header has children
     input1 = %Q(
@@ -101,19 +102,19 @@ console.log('test');
 <nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
   <ul id="sidebar" class="nav nav-stacked fixed">
     <li>
-      <a href="#dolor-sit-amet">Dolor Sit Amet</a>
+      <a href="#dolor-sit-amet"><p>Dolor Sit Amet</p></a>
       <ul class="nav nav-stacked">
-        <li><a href="#consectetur-adipiscing-elit">Consectetur Adipiscing Elit</a></li>
-        <li><a href="#morbi-eu-congue">Morbi Eu Congue</a></li>
+        <li><a href="#consectetur-adipiscing-elit"><p>Consectetur Adipiscing Elit</p></a></li>
+        <li><a href="#morbi-eu-congue"><p>Morbi Eu Congue</p></a></li>
       </ul>
     </li>
     <li>
-      <a href="#praesent-in-eros">Praesent In Eros</a>
+      <a href="#praesent-in-eros"><p>Praesent In Eros</p></a>
     </li>
     <li>
-      <a href="#etiam-metus-augue">Etiam Metus Augue</a>
+      <a href="#etiam-metus-augue"><p>Etiam Metus Augue</p></a>
       <ul class="nav nav-stacked">
-        <li><a href="#commodo-urna">Commodo Urna</a></li>
+        <li><a href="#commodo-urna"><p>Commodo Urna</p></a></li>
       </ul>
     </li>
   </ul>
@@ -132,13 +133,13 @@ console.log('test');
 <nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
   <ul id="sidebar" class="nav nav-stacked fixed">
     <li>
-      <a href="#dolor-sit-amet">Dolor Sit Amet</a>
+      <a href="#dolor-sit-amet"><p>Dolor Sit Amet</p></a>
       <ul class="nav nav-stacked">
-        <li><a href="#consectetur-adipiscing-elit">Consectetur Adipiscing Elit</a></li>
+        <li><a href="#consectetur-adipiscing-elit"><p>Consectetur Adipiscing Elit</p></a></li>
       </ul>
     </li>
     <li>
-      <a href="#etiam-metus-augue">Etiam Metus Augue</a>
+      <a href="#etiam-metus-augue"><p>Etiam Metus Augue</p></a>
     </li>
   </ul>
 </nav>
@@ -150,4 +151,29 @@ console.log('test');
     assert_equal(expected1, output1)
     assert_equal(expected2, output2)
   end
+
+  test "it renders Markdown in sidebar links" do
+    input = %(
+## `<marquee>` Cringe 101 is leaking
+
+### `<b>` Please make it stop
+).strip
+
+    expected = %(
+<nav class="workshop-sidebar hidden-print hidden-xs hidden-sm affix">
+  <ul id="sidebar" class="nav nav-stacked fixed">
+    <li>
+      <a href="#marquee-cringe-101-is-leaking"><p><code>&lt;marquee&gt;</code> Cringe 101 is leaking</p></a>
+      <ul class="nav nav-stacked">
+        <li><a href="#b-please-make-it-stop"><p><code>&lt;b&gt;</code> Please make it stop</p></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+).strip
+
+    actual = MarkdownService.new.render_sidebar(input)
+    assert_equal(expected, actual)
+  end
+  # rubocop:enable Metrics/LineLength, Style/StringLiterals
 end
