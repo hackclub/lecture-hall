@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "temporary_bootstrap_styles_and_overrides";
+
 .workshop-contents img {
   max-width: 100%;
 }
@@ -38,10 +40,10 @@
 .workshop-sidebar .nav > .active > a,
 .workshop-sidebar .nav > li > a:hover,
 .workshop-sidebar .nav > li > a:focus {
-  color: #563d7c;
+  color: $brand-primary;
   text-decoration: none;
   background-color: transparent;
-  border-left-color: #563d7c;
+  border-left-color: $brand-primary;
 }
 
 // All active links
