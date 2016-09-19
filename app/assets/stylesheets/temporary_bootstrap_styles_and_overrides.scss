@@ -1,0 +1,61 @@
+/* Temporary styles while we're waiting to get our real style guide/CSS framework together */
+
+/* Overrides */
+
+// Colors
+$brand-primary: #e42d40;
+
+// Typography
+$font-family-sans-serif: "Open Sans", "Helvetica Neue", sans-serif;
+
+// Media queries
+
+$screen-sm: 768px;
+
+// Navbar
+$navbar-height: 60px;
+$navbar-default-color: #fff;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-link-hover-bg: #da1c30;
+$navbar-default-bg: $brand-primary;
+$navbar-border-radius: 0;
+$navbar-default-border: $brand-primary;
+$navbar-default-toggle-hover-bg: $brand-primary;
+$navbar-default-toggle-icon-bar-bg: #fff;
+$navbar-default-toggle-border-color: #fff;
+
+/* Styles */
+
+// Make navbar beautiful
+.navbar-brand {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.navbar-nav a {
+  font-size: 16px;
+}
+
+.navbar > .container-fluid .navbar-brand {
+  @media screen and (min-width: $screen-sm) {
+    margin-left: -10px;
+  }
+}
+
+table {
+  @extend .table;
+}
+
+// Needed for fixed header
+body {
+  padding-top: 70px;
+}
+
+// Colored selection
+@include selection {
+  background: $brand-primary;
+  color: #fff;
+  opacity: 1;
+  text-shadow: none;
+}
