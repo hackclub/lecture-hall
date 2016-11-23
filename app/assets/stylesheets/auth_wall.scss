@@ -1,9 +1,16 @@
+.modal-auth {
+  pointer-events: none;
+}
+
+.modal-dialog-auth {
+  pointer-events: all;
+}
+
 .auth-wall {
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  pointer-events: none;
 
   opacity: 0.5;
 

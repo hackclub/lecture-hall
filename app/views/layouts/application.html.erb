@@ -37,8 +37,8 @@
       </div>
     </nav>
     <% if @auth_wall %>
-      <div class="modal modal-center show" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-center modal-auth-wall" role="document">
+      <div class="modal modal-center modal-auth show" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-center modal-dialog-auth modal-auth-wall" role="document">
           <div class="modal-content">
             <div class="modal-body">
               <%= link_to '/auth/github', class: 'btn btn-lg btn-social btn-github' do %>
