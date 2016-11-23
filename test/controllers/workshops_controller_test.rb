@@ -162,10 +162,28 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".modal-auth-wall", false
   end
 
-  test "index requires authentication" do
+  test "index doesn't require authentication" do
     get "/"
 
-    assert_select ".modal-auth-wall"
+    assert_select ".modal-auth-wall", false
+  end
+
+  test "CONTRIBUTING.md doesn't require authentication" do
+    get "/CONTRIBUTING.md"
+
+    assert_select ".modal-auth-wall", false
+  end
+
+  test "preface doesn't require authentication" do
+    get "/PREFACE.md"
+
+    assert_select ".modal-auth-wall", false
+  end
+
+  test "Slack setup doesn't require authentication" do
+    get "/slack/"
+
+    assert_select ".modal-auth-wall", false
   end
 
   test "dodge requires authentication" do
