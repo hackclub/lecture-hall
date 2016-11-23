@@ -1,7 +1,9 @@
 class WorkshopsController < ApplicationController
-  WORKSHOPS_WITHOUT_AUTH_WALL = [:personal_website].freeze
+  PATHS_WITHOUT_AUTH_WALL = ["CONTRIBUTING.md", "PREFACE.md"].freeze
+  WORKSHOPS_WITHOUT_AUTH_WALL = [:personal_website, :slack].freeze
 
   def index
+    @auth_wall = false
     path = workshops_path.join("README.md")
 
     render_md_file(path)
@@ -10,6 +12,9 @@ class WorkshopsController < ApplicationController
   def handle_root_request
     request_path = params[:path]
     request_path << ".#{params[:format]}" if params[:format]
+
+    @auth_wall = false if PATHS_WITHOUT_AUTH_WALL.include? request_path
+
     path = workshops_path.join(request_path)
 
     file_exists = File.exist?(path)
