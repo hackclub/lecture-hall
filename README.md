@@ -1,4 +1,6 @@
-# Lecture Hall [![CircleCI](https://circleci.com/gh/hackclub/lecture-hall.svg?style=svg)](https://circleci.com/gh/hackclub/lecture-hall)
+# Lecture Hall [DEPRECATED] [![CircleCI](https://circleci.com/gh/hackclub/lecture-hall.svg?style=svg)](https://circleci.com/gh/hackclub/lecture-hall)
+
+__*Warning: This repo has been deprecated in favor of https://github.com/hackclub/monolith.*__
 
 Lecture Hall is our custom workshop viewer available at https://workshops.hackclub.com. It takes the content from [`hackclub/hackclub`](https://github.com/hackclub/hackclub) and makes it beautiful and extra easy to access.
 
